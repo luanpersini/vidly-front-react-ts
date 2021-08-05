@@ -1,54 +1,121 @@
-import React, { Component } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import NavBar from './components/navBar';
+import routes from './config/routes';
+
+
+const App: React.FunctionComponent<Record<string, unknown>> = props => {
+     
+  // const user = {
+  //   _id: { $oid: '60a178327476cd104886862f' },
+  //   name: 'Luan PSG',
+  //   email: 'luanpsg@gmail.com',
+  //   password: '$2b$10$RX4j/xWlLQgViqNHPgUZYuFQsYC2yTGuZ3pQ2zN33dItpURq3aCHi'
+  // }
+
+  const user = null
+ 
+    return (
+      <BrowserRouter>
+      <ToastContainer />
+      <NavBar user={user} />            
+      <main className="container">            
+                <Switch>
+                    {routes.map((route, index) => {                       
+                        return (                            
+                            <Route 
+                                key={index}
+                                path={route.path}
+                                exact={route.exact}
+                                render={(props: RouteComponentProps<any> ) => (
+                                    <route.component
+                                        title={route.title} 
+                                        {...props}
+                                        {...route.props}
+                                    />
+                                )}
+                            />
+                        );
+                    })}
+                </Switch>            
+      </main>
+      </BrowserRouter>
+    );  
+}
+
+export default App;
+
+// ToDo
+// Toast Container
+
+/*
+import React from 'react'
+import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import './App.css'
-// import { Movies } from './pages/Movies'
-import Movies from './pages/Movies'
 // import ProtectedRoute from './components/common/protectedRoute'
-// import { Customers } from './components/customers'
+import { Customers } from './components/customers'
 // import LoginForm from './components/loginForm'
 // import Logout from './components/logout'
 // import MovieForm from './components/movieForm'
-// import NavBar from './components/navBar'
-// import NotFound from './components/notFound'
+import NavBar from './components/navBar'
+import NotFound from './components/notFound'
+import { Movies } from './pages/Movies'
 // import RegisterForm from './components/registerForm'
 // import Rentals from './components/rentals'
 // import auth from './services/authService'
 
-class App extends Component {
-  state = {}
-
+function App() {
   // componentDidMount() {
   //   const user = auth.getCurrentUser()
   //   this.setState({ user })
   // }
 
-  render() {
-    // const { user } = this.state
+  // const { user } = this.state
 
-    return (
-      <React.Fragment>
-        <ToastContainer />
-        {/* <NavBar user={user} /> */}
-        <main className="container">
-          <Switch>
-            {/* <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <ProtectedRoute path="/movies/:id" component={MovieForm} />
-            <Route path="/movies" render={(props) => <Movies {...props} user={this.state.user} />} />
-            <Route path="/customers" component={Customers} />
-            <Route path="/rentals" component={Rentals} />
-            <Route path="/not-found" component={NotFound} /> */}
-            <Route path="/movies" component={Movies} />
-            <Redirect from="/" exact to="/movies" />
-            {/* <Redirect to="/not-found" /> */}
-          </Switch>
-        </main>
-      </React.Fragment>
-    )
+  //   type UserParams = {
+  //     _id: string
+  //     name: string
+  //     email: string
+  //     password: string
+  // }
+  const user = {
+    _id: { $oid: '60a178327476cd104886862f' },
+    name: 'Luan PSG',
+    email: 'luanpsg@gmail.com',
+    password: '$2b$10$RX4j/xWlLQgViqNHPgUZYuFQsYC2yTGuZ3pQ2zN33dItpURq3aCHi'
   }
+
+  return (
+    <React.Fragment>
+      <ToastContainer />
+      <NavBar user={user} />
+      <main className="container">
+        <Switch>
+           
+         
+            
+        <Route path="/customers" component={Customers} />
+          <Route path="/movies" render={(props: RouteComponentProps) => <Movies {...props} user={user} />} />
+          <Route path="/movies" component={Movies} />
+          <Redirect from="/" exact to="/movies" />        
+          <Route path="*" component={NotFound} />
+        </Switch>
+      </main>
+    </React.Fragment>
+  )
 }
 
 export default App
+
+
+/*
+<Route path="/register" component={RegisterForm} />
+<Route path="/login" component={LoginForm} />
+<Route path="/logout" component={Logout} />
+<ProtectedRoute path="/movies/:id" component={MovieForm} />
+<Route path="/movies" render={(props) => <Movies {...props} user={this.state.user} />} />
+<Route path="/customers" component={Customers} />
+<Route path="/rentals" component={Rentals} />
+*/

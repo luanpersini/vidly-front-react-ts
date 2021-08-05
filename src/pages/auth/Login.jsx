@@ -35,7 +35,8 @@ class Login extends Form {
   };
 
   render() {
-    // if (auth.getCurrentUser()) return <Redirect to="/" />;
+    // se trouxer os dados do usuário logado, redireciona para a página inicial
+    // if (auth.getCurrentUser()) return <Redirect push to="/" />;
 
     return (
       <div>

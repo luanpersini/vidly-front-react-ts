@@ -1,3 +1,8 @@
+import { AxiosHttpClient } from './AxiosHttpClient'
+
+export const HttpClient = (): AxiosHttpClient => new AxiosHttpClient()
+
+/*
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -25,3 +30,6 @@ export default {
   delete: axios.delete,
   setJwt
 };
+*/
+
+

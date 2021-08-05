@@ -6,30 +6,16 @@ import ListGroup from '../components/common/listGroup'
 import Pagination from '../components/common/pagination'
 import MoviesTable from '../components/movies/moviesTable'
 import SearchBox from '../components/searchBox'
+import { GenreParams } from '../protocols/genre'
+import { MovieParams } from '../protocols/movie'
 import { Page } from '../protocols/page'
 import { UserParams } from '../protocols/user'
-import { getMovies } from '../services/fakeMovieService'
 import { getGenres } from '../services/genreService'
+import { getMovies } from '../services/movieService'
 import { paginate } from '../utils/paginate'
 
 const Movies: React.FC<Page & {user: UserParams}> = props => {
-      
-  type GenreParams = {
-    _id: string
-    name: string
-  }
-  type MovieParams = {
-    _id: string
-    title: string
-    genre: {
-      _id: string
-      name: string
-    }
-    numberInStock: number
-    dailyRentalRate: number
-    liked?: boolean
-  }
-
+  
   type SortColumnParams = {
     path: string
     order: 'asc' | 'desc'
@@ -49,7 +35,8 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
 
   useEffect(() => {
     ;(async () => {
-      const genres = await getGenres()
+      const data = await getGenres()
+      const genres = [{ _id: "", name: "All Genres" }, ...data];
       setGenres(genres)          
       const movies = await getMovies()
       setAllMovies(movies)      

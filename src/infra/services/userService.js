@@ -1,4 +1,4 @@
-import { apiUrl } from "../config.json";
+import { apiUrl } from "../../config.json";
 
 const apiEndpoint = apiUrl + "/users";
 

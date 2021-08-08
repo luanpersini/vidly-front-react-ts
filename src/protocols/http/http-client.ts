@@ -15,6 +15,7 @@ export type HttpResponse<T = any> = {
 
 export type HttpMethod = 'post' | 'get' | 'put' | 'delete'
 
+
 export enum HttpStatusCode {
   ok = 200,
   noContent = 204,
@@ -22,7 +23,7 @@ export enum HttpStatusCode {
   unauthorized = 401,
   forbidden = 403,
   notFound = 404,
-  serverError = 500
+  serverError = 500  
 }
 
 

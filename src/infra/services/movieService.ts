@@ -1,12 +1,11 @@
-import { apiUrl } from "../config.json";
-import { HttpStatusCode } from "../protocols/http";
-import { MovieParams } from '../protocols/movie';
-import { AccessDeniedError, UnexpectedError } from "../utils/errors";
-import { HttpClient } from "./http/httpService";
+import { apiUrl } from "../../config.json";
+import { HttpStatusCode } from "../../protocols/http";
+import { MovieParams } from '../../protocols/movie';
+import { HttpClient } from "./httpService";
 
 const apiEndpoint = apiUrl + "/movies";
 
-export async function getMovies(): Promise<MovieParams[]> { 
+export async function getMovies(): Promise<MovieParams[] | []> { 
 
   const httpClient = HttpClient()
      const httpResponse = await httpClient.request({
@@ -14,13 +13,11 @@ export async function getMovies(): Promise<MovieParams[]> {
      method: 'get'
    })
    const data = httpResponse.body
-   console.log('data --- ' + JSON.stringify(data));
-   
-   switch (httpResponse.statusCode) {
+
+     switch (httpResponse.statusCode) {
      case HttpStatusCode.ok: return data
-     case HttpStatusCode.noContent: return []
-     case HttpStatusCode.forbidden: throw new AccessDeniedError()
-     default: throw new UnexpectedError()
+    //  case HttpStatusCode.forbidden: throw new EmailInUseError()     
+     default:  return []
    }
  }
 

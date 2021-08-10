@@ -13,6 +13,7 @@
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "project": "./tsconfig.json",
         "ecmaFeatures": {
             "jsx": true
         },
@@ -26,9 +27,11 @@
     ],
     "rules": {
         "react/prop-types": "off",
+        "@typescript-eslint/no-fallthrough": "off", 
         "@typescript-eslint/consistent-type-definitions": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-floating-promises": "off",
         "react/react-in-jsx-scope": "off",
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": [

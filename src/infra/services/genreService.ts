@@ -1,20 +1,20 @@
 import { apiUrl } from '../../config.json'
-import { GenreParams } from '../../protocols/genre'
-import { HttpStatusCode } from '../../protocols/http'
-import { HttpClient } from './httpService'
+import { httpErrorHandler } from '../http/http-error-handler'
+import { Http } from './httpService'
 
-export async function getGenres(): Promise<GenreParams[]> {
-  const httpClient = HttpClient()
-  const httpResponse = await httpClient.request({
+const http = Http()
+
+// export async function getGenres(): Promise<GenreParams[]> {
+export async function getGenres(): Promise<any> {
+  const httpResponse = await http.request({
     url: apiUrl + '/genres',
     method: 'get'
   })
   const data = httpResponse.body
-
-  switch (httpResponse.statusCode) {
-    case HttpStatusCode.ok: return data
-   //  case HttpStatusCode.forbidden: throw new EmailInUseError()  
-  //  case HttpStatusCode.forbidden: throw new AccessDeniedError()   
-    default:  return []
+  const statusCode = httpResponse.statusCode
+  
+  switch (statusCode) {
+     default: httpErrorHandler(statusCode)
   }
+  return data
 }

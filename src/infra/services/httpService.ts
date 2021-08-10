@@ -1,4 +1,3 @@
 import { AxiosHttpAdapter } from '../http/AxiosHttpAdapter';
 
-export const HttpClient = (): AxiosHttpAdapter => new AxiosHttpAdapter()
-
+export const Http = (): AxiosHttpAdapter => new AxiosHttpAdapter()

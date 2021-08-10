@@ -4,7 +4,6 @@
   "author": "Luan Persini",
   "private": true,
   "dependencies": {
-    "@types/helmet": "^4.0.0",
     "axios": "^0.18.1",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
@@ -17,7 +16,8 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "react-toastify": "^4.5.2"
+    "react-toastify": "^4.5.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -59,6 +59,7 @@
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
+    "eslint-config-standard-with-typescript": "^20.0.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",

@@ -56,4 +56,6 @@ describe('AxiosHttpAdapter', () => {
 
     expect(promise).toEqual(mockedAxios.request.mock.results[0].value)
   })
+
+
 })

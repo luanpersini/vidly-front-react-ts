@@ -3,7 +3,8 @@ import NotFound from "../components/notFound";
 import Login from '../pages/auth/Login';
 import Logout from '../pages/auth/Logout';
 import Register from '../pages/auth/Register';
-import Movies from "../pages/Movies";
+import MovieForm from '../pages/movies/movieForm';
+import Movies from "../pages/movies/Movies";
 import { Route } from "../protocols/route";
 
 const user = {
@@ -28,7 +29,13 @@ const mainRoutes: Route[] = [
         component: Movies,
         exact: true,
         props: {user: user}
-    },   
+    },  
+    {
+        path: '/movies/:id',
+        title: 'Movies',
+        component: MovieForm,
+        exact: true       
+    }, 
     {
         path: '/customers',
         title: 'Customers',

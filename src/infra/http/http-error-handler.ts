@@ -1,28 +1,42 @@
 import { toast } from "react-toastify";
-import { HttpResponse } from "../../protocols/http";
+import { HttpStatusCode } from "../../protocols/http";
+
+export async function httpErrorHandler(statusCode: number, action?: string): Promise<any>  { 
+    let type = ''
+    let message = ''
+
+  if (statusCode >= 200 && statusCode <= 299 && action) {
+    type = 'success'
+    message = 'Success'      
+    }
 
 
-export async function httpErrorHandler(error: any): Promise<HttpResponse>  { 
-     if (error.response) {       
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx 
-      return {
-        statusCode: error.response.status,
-        body: error.response.data
-      }
-
-      } else if (error.message === 'Network Error') { 
-        toast.error("Server Offline. Please, try again in a few minutes.");            
-          return {
-            statusCode: 503,
-            body: []
-          }        
-      } else {           
-        toast.error("Unexpected Error.");   
-        return {
-          statusCode: 500,
-          body: []
-        }   
-      }  
+  if (statusCode > 299 && !action) {
+  switch (statusCode) {
+    case HttpStatusCode.forbidden: message = "AccessDeniedError()" 
+    break;  
+    default: message = "UnexpectedError" 
+  }
+}
+if (HttpStatusCode.forbidden && action) {
+       switch (action) {
+        case 'EmailInUse': message = "EmailInUseError()";
+        break; 
+        default:  message = "Access Denied"  ;
+    }    
+} 
+      if (type === 'success') {
+        toast.success(message);  
+        return [] 
+      }else if (type === 'error') {
+        toast.error(message);
+        console.log();          
+      }     
+ 
  }
 
+//  switch (statusCode) {
+//   case HttpStatusCode.forbidden: httpErrorHandler(statusCode)
+//   break
+//   default: httpErrorHandler(statusCode)
+// }

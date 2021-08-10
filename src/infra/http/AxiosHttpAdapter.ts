@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
 import { HttpClient, HttpRequest, HttpResponse } from '../../protocols/http'
-import { httpErrorHandler } from './http-error-handler'
 
 export class AxiosHttpAdapter implements HttpClient {
   async request(data: HttpRequest): Promise<HttpResponse> {
@@ -13,7 +12,16 @@ export class AxiosHttpAdapter implements HttpClient {
         headers: data.headers
       })
     } catch (error: any) {
-      return httpErrorHandler(error)
+      if (error.response) { 
+        axiosResponse = error.response
+      }else{    
+        console.log(error);           
+        return {
+          statusCode: 500,
+          body: []
+        } 
+      }
+      // return httpErrorHandler(error)
     }
     return {
       statusCode: axiosResponse.status,

@@ -2,17 +2,17 @@ import { AxiosResponse } from 'axios'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ListGroup from '../components/common/listGroup'
-import Pagination from '../components/common/pagination'
-import MoviesTable from '../components/movies/moviesTable'
-import SearchBox from '../components/searchBox'
-import { getGenres } from '../infra/services/genreService'
-import { getMovies } from '../infra/services/movieService'
-import { GenreParams } from '../protocols/genre'
-import { MovieParams } from '../protocols/movie'
-import { Page } from '../protocols/page'
-import { UserParams } from '../protocols/user'
-import { paginate } from '../utils/paginate'
+import ListGroup from '../../components/common/listGroup'
+import Pagination from '../../components/common/pagination'
+import SearchBox from '../../components/searchBox'
+import { getGenres } from '../../infra/services/genreService'
+import { getMovies } from '../../infra/services/movieService'
+import { GenreParams } from '../../protocols/genre'
+import { MovieParams } from '../../protocols/movie'
+import { Page } from '../../protocols/page'
+import { UserParams } from '../../protocols/user'
+import { paginate } from '../../utils/paginate'
+import MoviesTable from './moviesTable'
 
 const Movies: React.FC<Page & {user: UserParams}> = props => {
   
@@ -24,6 +24,7 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
   const allGenres = { _id: '', name: 'All Genres' }
   const [genre, setGenre] = useState<GenreParams>(allGenres)
   const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
+  // const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
   const [allMovies, setAllMovies] = useState<MovieParams[]>([])
   const [pageSize, setPageSize] = useState<number>(5)
   const [currentPage, setCurrentPage] = useState<number>(1)

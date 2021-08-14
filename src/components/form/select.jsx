@@ -1,6 +1,6 @@
 import React from "react";
 
-const Select = ({ name, label, options, error, ...rest }) => {
+export const Select = ({ name, label, options, error, ...rest }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -16,5 +16,3 @@ const Select = ({ name, label, options, error, ...rest }) => {
     </div>
   );
 };
-
-export default Select;

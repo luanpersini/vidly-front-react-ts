@@ -1,3 +1,5 @@
+
+/*
 import Joi from "joi-browser";
 import React from "react";
 import Form from "../../components/common/form";
@@ -52,3 +54,21 @@ class Login extends Form {
 }
 
 export default Login;
+*/
+
+import { Component } from "react";
+
+class Logout extends Component {
+  /* 
+   componentDidMount() {
+     auth.logout();
+ 
+     window.location = "/";
+   }
+ */
+   render() {
+     return null;
+   }
+ }
+ 
+ export default Logout;

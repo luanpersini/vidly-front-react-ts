@@ -1,7 +1,6 @@
+import Joi from "joi-browser";
 import React, { Component } from "react";
-import Joi from '../../infra/joi';
-import Input from "./input";
-import Select from "./select";
+import { Input, Select } from "../form";
 
 class Form extends Component {
   state = {
@@ -88,97 +87,3 @@ class Form extends Component {
 }
 
 export default Form;
-
-
-
-
-
-
-  /*
-const Form: React.FC<any> = props => {
-
-  const [errors, setErrors] = useState<null | any>({})
-  const [data, setData] = useState<null | any>({})
-  
-    const validate = () => {
-    const options = { abortEarly: false }
-    const { error } = Joi.validate(data, this.schema, options)
-    if (!error) return null
-
-    const errors = {}
-    for (const item of error.details) errors[item.path[0]] = item.message
-    return errors
-  },
-
-  validateProperty({ name, value }) {
-    const obj = { [name]: value }
-    const schema = { [name]: this.schema[name] }
-    const { error } = Joi.validate(obj, schema)
-    return error ? error.details[0].message : null
-  },
-
-  handleSubmit(e) {
-    e.preventDefault()
-
-    const errors = this.validate()
-    this.setState({ errors: errors || {} })
-    if (errors) return
-
-    this.doSubmit()
-  },
-
-  handleChange({ currentTarget: input }) {
-    const errors = { ...this.state.errors }
-    const errorMessage = this.validateProperty(input)
-    if (errorMessage) errors[input.name] = errorMessage
-    else delete errors[input.name]
-
-    const datax = { ...data }
-    datax[input.name] = input.value
-
-    setData(datax)
-    setErrors(errors)
-  },
-
-  renderButton(label) {
-    return (
-      <button disabled={this.validate()} className="btn btn-primary">
-        {label}
-      </button>
-    )
-  },
-
-  renderSelect(name, label, options) {
-    return (
-      <Select
-        name={name}
-        value={data[name]}
-        label={label}
-        options={options}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
-    )
-  },
-
-  renderInput(name, label, type = 'text') {
-   
-    return (
-      <Input
-        type={type}
-        name={name}
-        value={data[name]}
-        label={label}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
-    )
-  }
-
-
-}
-
-export default Form
-
-
-*/

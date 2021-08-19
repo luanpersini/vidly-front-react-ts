@@ -17,12 +17,12 @@ export function Select(props: Props) {
     <div className="form-group">
       <label htmlFor={name}>{labelName}</label>
 
-      <select 
-      {...props} 
-      name={name} 
-      id={id === undefined ? name : id} 
-      className={className}>
-
+      <select
+        {...props}
+        name={name}
+        id={id === undefined ? name : id}
+        className={className}
+      >
         <option value="" />
         {options.map((option) => (
           <option key={option._id} value={option._id}>

@@ -10,7 +10,7 @@ const itemClass = (item, selectedItem) => {
   return "list-group-item"
 }
 
-const ListGroup = ({
+export const ListGroup = ({
   items,
   textProperty,
   valueProperty,
@@ -38,5 +38,3 @@ ListGroup.defaultProps = {
   textProperty: "name",
   valueProperty: "_id"
 };
-
-export default ListGroup;

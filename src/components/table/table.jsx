@@ -1,8 +1,7 @@
 import React from "react";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
+import { TableBody, TableHeader } from "./";
 
-const Table = ({ columns, sortColumn, onSort, data }) => {
+export const Table = ({ columns, sortColumn, onSort, data }) => {
   return (
     <table className="table">
       <TableHeader columns={columns} sortColumn={sortColumn} onSort={onSort} />
@@ -11,4 +10,3 @@ const Table = ({ columns, sortColumn, onSort, data }) => {
   );
 };
 
-export default Table;

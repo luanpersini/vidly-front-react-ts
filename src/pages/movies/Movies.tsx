@@ -1,16 +1,10 @@
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import ListGroup from '../../components/common/listGroup'
-import Pagination from '../../components/common/pagination'
-import SearchBox from '../../components/searchBox'
-import { Title } from '../../components/template/page-title'
-import { getGenres } from '../../infra/services/genreService'
-import { getMovies } from '../../infra/services/movieService'
-import { GenreParams } from '../../protocols/genre'
-import { MovieParams } from '../../protocols/movie'
-import { Page } from '../../protocols/page'
-import { UserParams } from '../../protocols/user'
+import { ListGroup, Pagination, SearchBox } from '../../components/common'
+import { Title } from '../../components/template'
+import { getGenres, getMovies } from '../../infra/services'
+import { GenreParams, MovieParams, Page, UserParams } from '../../protocols'
 import { paginate } from '../../utils/paginate'
 import MoviesTable from './moviesTable'
 
@@ -23,8 +17,7 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
   const user = props.user
   const allGenres = { _id: '', name: 'All Genres' }
   const [genre, setGenre] = useState<GenreParams>(allGenres)
-  const [genres, setGenres] = useState<null | GenreParams[]>([allGenres])
-  // const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
+  const [genres, setGenres] = useState<GenreParams[]>([allGenres])
   const [allMovies, setAllMovies] = useState<MovieParams[]>([])
   const [pageSize, setPageSize] = useState<number>(5)
   const [currentPage, setCurrentPage] = useState<number>(1)

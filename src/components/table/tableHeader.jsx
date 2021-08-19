@@ -4,7 +4,7 @@ import React, { Component } from "react";
 // sortColumn: object
 // onSort: function
 
-class TableHeader extends Component {
+export class TableHeader extends Component {
   raiseSort = path => {
     const sortColumn = { ...this.props.sortColumn };
     if (sortColumn.path === path)
@@ -43,4 +43,3 @@ class TableHeader extends Component {
   }
 }
 
-export default TableHeader;

@@ -1,10 +1,10 @@
-import { AxiosResponse } from 'axios'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ListGroup from '../../components/common/listGroup'
 import Pagination from '../../components/common/pagination'
 import SearchBox from '../../components/searchBox'
+import { Title } from '../../components/template/page-title'
 import { getGenres } from '../../infra/services/genreService'
 import { getMovies } from '../../infra/services/movieService'
 import { GenreParams } from '../../protocols/genre'
@@ -23,7 +23,7 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
   const user = props.user
   const allGenres = { _id: '', name: 'All Genres' }
   const [genre, setGenre] = useState<GenreParams>(allGenres)
-  const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
+  const [genres, setGenres] = useState<null | GenreParams[]>([allGenres])
   // const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
   const [allMovies, setAllMovies] = useState<MovieParams[]>([])
   const [pageSize, setPageSize] = useState<number>(5)
@@ -41,7 +41,6 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
       setGenres(genres)          
       const movies = await getMovies()
       setAllMovies(movies)      
-      document.title = props.title      
     })()
   }, [])
 
@@ -89,7 +88,7 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
   // Delete Movie
   return (
     <div> 
-      <h1 className="page-title">Movies</h1>
+      <Title title={props.title} />
     <div className="row">
       <div className="col-3">
         <ListGroup items={genres} selectedItem={genre} onItemSelect={handleGenreSelect} />

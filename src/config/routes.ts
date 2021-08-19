@@ -32,7 +32,7 @@ const mainRoutes: Route[] = [
     },  
     {
         path: '/movies/:id',
-        title: 'Movies',
+        title: 'Edit Movie',
         component: MovieForm,
         exact: true       
     }, 

@@ -1,33 +1,53 @@
-import React from 'react';
-import Input from '../../components/form/input';
-import { Title } from '../../components/template/page-title';
+import { AxiosResponse } from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Input from '../../components/form/input'
+import { Title } from '../../components/template/page-title'
+import { getGenres } from '../../infra/services/genreService'
+import { GenreParams, Page } from '../../protocols'
 
 interface FormErrors {
   name: string
   message: string
 }
 
-export function MovieForm() {
+export function MovieForm(props: Page ) {
   // const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"},{name: "Title", message: "Title is required"}]);
-  const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"}]);
-   
-  function handleSubmit () {
-    const a = "lala"
+  const allGenres = { _id: '', name: 'All Genres' }
+  const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
+  const [errors, setErrors] = React.useState<FormErrors[]>([{ name: 'Email', message: 'Email is required' }])
+
+  let title = props.title
+  const {id: movieId} = useParams<{ id: string }>()
+  if (movieId === 'new') {title = "New Movie"}
+
+  useEffect(() => {
+    (async () => {
+      const data = await getGenres()
+      const genres = [{ _id: "", name: "All Genres" }, ...data];
+      setGenres(genres)          
+      // const movies = await getMovies()
+      // setAllMovies(movies) 
+    })()
+  }, [])
+
+  function handleSubmit() {
+    const a = 'lala'
   }
   console.log('111' + JSON.stringify(errors))
 
   return (
     <div>
-        <Title title="Movie" />
-        <form onSubmit={handleSubmit}>        
-        <Input name="title" label="Title"  errors={errors}/>
-        <Input name="numberInStock" label="Number in Stock" type="number" errors={errors}/>
-        <Input name="dailyRentalRate" label="Rate"  errors={errors}/>
-        </form>
-      </div>
-  );
- };
-
+      <Title title={title} />
+      <form onSubmit={handleSubmit}>
+        <Input name="title" label="Title" errors={errors} />
+        <Input name="numberInStock" label="Number in Stock" type="number" errors={errors} />
+        <Input name="dailyRentalRate" label="Rate" errors={errors} />
+      </form>
+    </div>
+  )
+}
+//  {this.renderSelect('genreId', 'Genre', this.state.genres)}
 /*
 import Joi from 'joi-browser'
 import React from 'react'

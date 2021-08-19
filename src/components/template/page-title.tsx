@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 interface Props {
@@ -15,5 +15,7 @@ export const TitleStyle = styled.h1`
 `
 
 export function Title({ title }: Props) {
+  useEffect(() => { document.title = title}, [])
   return <TitleStyle>{title}</TitleStyle>
+ 
 }

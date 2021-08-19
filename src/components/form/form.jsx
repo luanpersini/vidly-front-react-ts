@@ -1,6 +1,8 @@
-import Joi from "joi-browser";
 import React, { Component } from "react";
-import { Input, Select } from "../form";
+import { Input, Select } from ".";
+import Joi from '../../infra/joi';
+
+// prepare components to be used inside form
 
 class Form extends Component {
   state = {

@@ -1,6 +1,37 @@
+import React from 'react';
+import Input from '../../components/form/input';
+import { Title } from '../../components/template/page-title';
+
+interface FormErrors {
+  name: string
+  message: string
+}
+
+export function MovieForm() {
+  // const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"},{name: "Title", message: "Title is required"}]);
+  const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"}]);
+   
+  function handleSubmit () {
+    const a = "lala"
+  }
+  console.log('111' + JSON.stringify(errors))
+
+  return (
+    <div>
+        <Title title="Movie" />
+        <form onSubmit={handleSubmit}>        
+        <Input name="title" label="Title"  errors={errors}/>
+        <Input name="numberInStock" label="Number in Stock" type="number" errors={errors}/>
+        <Input name="dailyRentalRate" label="Rate"  errors={errors}/>
+        </form>
+      </div>
+  );
+ };
+
+/*
 import Joi from 'joi-browser'
 import React from 'react'
-import Form from '../../components/common/form'
+import { Form } from '../../components/form'
 import { getGenres } from '../../infra/services/genreService'
 import { getMovie, saveMovie } from '../../infra/services/movieService'
 
@@ -67,7 +98,7 @@ class MovieForm extends Form {
       <div>
         <h1>Movie Form</h1>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput('title', 'Title')}
+          {this.renderInput('title', 'Title')}    
           {this.renderSelect('genreId', 'Genre', this.state.genres)}
           {this.renderInput('numberInStock', 'Number in Stock', 'number')}
           {this.renderInput('dailyRentalRate', 'Rate')}
@@ -79,3 +110,4 @@ class MovieForm extends Form {
 }
 
 export default MovieForm
+*/

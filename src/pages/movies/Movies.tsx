@@ -88,6 +88,8 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
   // Page Size
   // Delete Movie
   return (
+    <div> 
+      <h1 className="page-title">Movies</h1>
     <div className="row">
       <div className="col-3">
         <ListGroup items={genres} selectedItem={genre} onItemSelect={handleGenreSelect} />
@@ -114,6 +116,7 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
           onPageChange={(page: number) => setCurrentPage(page)}
         />
       </div>
+    </div>
     </div>
   )
 }

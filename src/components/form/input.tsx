@@ -2,13 +2,13 @@
 import React, { InputHTMLAttributes } from 'react';
 import { ErrorMessage } from './error-message';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   label?: string | undefined
   errors?: any[]
 }
 
-function Input(props: InputProps) {
+export function Input(props: Props) {
   const { name, errors, id, label, type, className, placeholder } = props  
   
   const labelName = label === undefined ? name : label   
@@ -35,4 +35,3 @@ Input.defaultProps = {
   placeholder: undefined
 }
 
-export default Input

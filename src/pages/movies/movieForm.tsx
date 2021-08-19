@@ -1,7 +1,6 @@
-import { AxiosResponse } from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Input from '../../components/form/input'
+import { Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
 import { getGenres } from '../../infra/services/genreService'
 import { GenreParams, Page } from '../../protocols'
@@ -11,23 +10,23 @@ interface FormErrors {
   message: string
 }
 
-export function MovieForm(props: Page ) {
+export function MovieForm(props: Page) {
   // const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"},{name: "Title", message: "Title is required"}]);
-  const allGenres = { _id: '', name: 'All Genres' }
-  const [genres, setGenres] = useState<AxiosResponse | null | GenreParams[]>([allGenres])
+  const [genres, setGenres] = useState<GenreParams[]>([])
   const [errors, setErrors] = React.useState<FormErrors[]>([{ name: 'Email', message: 'Email is required' }])
 
   let title = props.title
-  const {id: movieId} = useParams<{ id: string }>()
-  if (movieId === 'new') {title = "New Movie"}
+  const { id: movieId } = useParams<{ id: string }>()
+  if (movieId === 'new') {
+    title = 'New Movie'
+  }
 
   useEffect(() => {
-    (async () => {
-      const data = await getGenres()
-      const genres = [{ _id: "", name: "All Genres" }, ...data];
-      setGenres(genres)          
+    ;(async () => {
+      const genres = await getGenres()      
+      setGenres(genres)
       // const movies = await getMovies()
-      // setAllMovies(movies) 
+      // setAllMovies(movies)
     })()
   }, [])
 
@@ -41,6 +40,7 @@ export function MovieForm(props: Page ) {
       <Title title={title} />
       <form onSubmit={handleSubmit}>
         <Input name="title" label="Title" errors={errors} />
+        <Select name="genreId" label="Genre" options={genres} errors={errors} />
         <Input name="numberInStock" label="Number in Stock" type="number" errors={errors} />
         <Input name="dailyRentalRate" label="Rate" errors={errors} />
       </form>

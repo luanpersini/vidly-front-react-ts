@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "author": "Luan Persini",
   "private": true,
-  "dependencies": {    
+  "dependencies": {
     "axios": "^0.18.1",
     "bootstrap": "^4.6.0",
-    "font-awesome": "^4.7.0",    
+    "font-awesome": "^4.7.0",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",

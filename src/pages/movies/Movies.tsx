@@ -8,8 +8,9 @@ import { GenreParams, MovieParams, Page, UserParams } from '../../protocols'
 import { paginate } from '../../utils/paginate'
 import MoviesTable from './moviesTable'
 
-const Movies: React.FC<Page & {user: UserParams}> = props => {
-  
+// const Movies: React.FC<Page & {user: UserParams}> = props => {
+export function Movies(props: Page & {user: UserParams}) {
+
   type SortColumnParams = {
     path: string
     order: 'asc' | 'desc'
@@ -112,5 +113,3 @@ const Movies: React.FC<Page & {user: UserParams}> = props => {
     </div>
   )
 }
-
-export default Movies

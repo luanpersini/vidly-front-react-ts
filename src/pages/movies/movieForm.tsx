@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Input, Select } from '../../components/form'
+import { Button } from '../../components/form/button'
+import { CancelButton } from '../../components/form/cancel-button'
 import { Title } from '../../components/template/page-title'
 import { getGenres } from '../../infra/services/genreService'
 import { GenreParams, Page } from '../../protocols'
-
+// import { getMovie, saveMovie } from '../../infra/services/movieService'
 interface FormErrors {
   name: string
   message: string
 }
-
 export function MovieForm(props: Page) {
+  const history = useHistory()
   // const [errors, setErrors] = React.useState<FormErrors[]>([{name: "Email", message: "Email is required"},{name: "Title", message: "Title is required"}]);
   const [genres, setGenres] = useState<GenreParams[]>([])
   const [errors, setErrors] = React.useState<FormErrors[]>([{ name: 'Email', message: 'Email is required' }])
@@ -31,8 +33,16 @@ export function MovieForm(props: Page) {
   }, [])
 
   function handleSubmit() {
-    const a = 'lala'
-  }
+    console.log("lalalal -------");     
+    history.push("/movies")   
+  }  
+
+  function handleCancel() {
+    console.log("canceled-------");     
+    history.goBack()  
+  } 
+
+ 
   console.log('111' + JSON.stringify(errors))
 
   return (
@@ -43,16 +53,23 @@ export function MovieForm(props: Page) {
         <Select name="genreId" label="Genre" options={genres} errors={errors} />
         <Input name="numberInStock" label="Number in Stock" type="number" errors={errors} />
         <Input name="dailyRentalRate" label="Rate" errors={errors} />
+        <CancelButton />
+        <Button label="Submit"/>
       </form>
     </div>
   )
 }
-//  {this.renderSelect('genreId', 'Genre', this.state.genres)}
 /*
-import Joi from 'joi-browser'
-import React from 'react'
-import { Form } from '../../components/form'
-import { getGenres } from '../../infra/services/genreService'
+import { useHistory } from "react-router-dom";
+
+export const Item = () => {
+    let history = useHistory();
+    return (
+        <>
+          <button onClick={() => history.goBack()}>Back</button>
+        </>
+    );
+};
 import { getMovie, saveMovie } from '../../infra/services/movieService'
 
 class MovieForm extends Form {

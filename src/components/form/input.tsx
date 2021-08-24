@@ -5,11 +5,13 @@ import { ErrorMessage } from './error-message';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name: string
   label?: string | undefined
-  errors?: any[]
+  errors?: any[]  
+  
 }
-
+// inputValues?: any | undefined
 export function Input(props: Props) {
   const { name, errors, id, label, type, className, placeholder } = props  
+  // console.log('input vv----'+inputValues);
   
   const labelName = label === undefined ? name : label   
   return (
@@ -20,6 +22,7 @@ export function Input(props: Props) {
         {...props}
         name={name}
         type={type}
+        // value={inputValues[name]}
         id={id === undefined ? name : id}
         placeholder={placeholder === undefined ? `Enter ${labelName}...` : placeholder}
         className={className}
@@ -33,5 +36,6 @@ Input.defaultProps = {
   type: 'text',
   className: 'form-control',
   placeholder: undefined
+  // inputValues: undefined
 }
 

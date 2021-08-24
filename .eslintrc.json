@@ -6,10 +6,9 @@
         "jest": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "standard",
-        "plugin:@typescript-eslint/recommended",
-        "prettier"
+        "plugin:react/recommended",              
+        "prettier",
+        "plugin:@typescript-eslint/recommended"       
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -32,10 +31,9 @@
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-floating-promises": "off",
-        "react/react-in-jsx-scope": "off",
+        "react/react-in-jsx-scope": "off",        
         "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": [
-            "error"
-        ]
+        "@typescript-eslint/no-use-before-define": ["error", { "functions": false }]
+        
     }
 }

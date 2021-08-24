@@ -9,3 +9,11 @@ export type MovieParams = {
   dailyRentalRate: number
   liked?: boolean
 }
+
+export type MovieFormParams = {
+  _id: string
+  title: string
+  genreId: string    
+  numberInStock: number
+  dailyRentalRate: number 
+}

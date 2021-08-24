@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Input, Select } from ".";
-import Joi from '../../infra/validation/joi';
+import Joi from '../../infra/joi';
 
 // prepare components to be used inside form
 

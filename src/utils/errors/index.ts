@@ -1,4 +1,4 @@
 export * from './invalid-credentials-error'
+export * from './movie-not-found-error'
 export * from './unexpected-error'
-export * from './email-in-use-error'
-export * from './access-denied-error'
+

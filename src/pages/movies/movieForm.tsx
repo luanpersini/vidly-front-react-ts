@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, CancelButton, Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
+import { httpErrorHandler } from '../../infra/http/http-error-handler'
 import { getGenres, getMovie } from '../../infra/services'
 import {
   GenreParams,
@@ -34,13 +35,18 @@ export function MovieForm(props: Page) {
       if (movieId === 'new') {
         title = 'New Movie'
       } else {
+        try{
         const movie = await getMovie(movieId)
         if (HttpStatusCode.notFound === movie) {
           history.replace('/not-found/movie_not_found')
           return
-        }
+        }        
         setMovie(mapToViewModel(movie))
+      }catch (error: any) {
+        history.replace('/movies')        
+        httpErrorHandler(error)                             
       }
+    }
     })()
   }, [])
 

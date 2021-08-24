@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { ListGroup, Pagination, SearchBox } from '../../components/common'
 import { Title } from '../../components/template'
 import { getGenres, getMovies } from '../../infra/services'
@@ -14,6 +14,7 @@ export function Movies(props: Page & { user: UserParams }) {
     path: string
     order: 'asc' | 'desc'
   }
+  const history = useHistory()
   const user = props.user
   const allGenres = { _id: '', name: 'All Genres' }
   const [genre, setGenre] = useState<GenreParams>(allGenres)
@@ -29,11 +30,24 @@ export function Movies(props: Page & { user: UserParams }) {
 
   useEffect(() => {
     (async () => {
+     
+      try{
       const data = await getGenres()
       const genres = [{ _id: '', name: 'All Genres' }, ...data]
       setGenres(genres)
       const movies = await getMovies()
       setAllMovies(movies)
+    }catch (error: any) {             
+      // httpErrorHandler(error)                             
+    }
+    
+    
+      // const data = await getGenres()
+      // const genres = [{ _id: '', name: 'All Genres' }, ...data]
+      // setGenres(genres)
+      // const movies = await getMovies()
+      // setAllMovies(movies)
+    
     })()
   }, [])
 

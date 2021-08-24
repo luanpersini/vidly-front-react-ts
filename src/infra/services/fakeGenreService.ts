@@ -9,9 +9,9 @@
 // }
 
 // switch (statusCode) {
-//   case HttpStatusCode.forbidden: httpErrorHandler(statusCode)
+//   case HttpStatusCode.forbidden: httpResponseHandler(statusCode)
 //   break
-//   default: httpErrorHandler(statusCode)
+//   default: httpResponseHandler(statusCode)
 // }
 
 export const genres = [

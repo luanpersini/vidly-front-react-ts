@@ -1,6 +1,5 @@
 import { apiUrl } from '../../config.json'
-import { HttpStatusCode } from '../../protocols/http'
-import { httpErrorHandler } from '../http/http-error-handler'
+import { httpResponseHandler } from '../http/http-response-handler'
 import { Http } from './httpService'
 
 const apiEndpoint = apiUrl + '/movies'
@@ -15,38 +14,26 @@ export async function getMovies(): Promise<any> {
     url: apiEndpoint,
     method: 'get'
   })
-  const data = httpResponse.body
-
-  switch (httpResponse.statusCode) {
-    case HttpStatusCode.ok:
-      return data
-    default:
-      return []
-  }
+    
+  return httpResponseHandler(httpResponse) 
+  
+  // const data = httpResponse.body
+  // switch (httpResponse.statusCode) {
+  //   case HttpStatusCode.ok: return data    
+  //   default: return []
+  // }
+  
 }
-// export async function getMovie(movieId: any): Promise<MovieParams[]> {
+
 export async function getMovie(movieId: any): Promise<any> {
   const httpResponse = await http.request({
     url: movieUrl(movieId),
     method: 'get'
-  })
-  const data = httpResponse.body
-  const statusCode = httpResponse.statusCode
-
-  console.log('data ---' + data)
-  console.log('stat ---' + statusCode)
-
-  //   switch (statusCode) {
-  //     case HttpStatusCode.notFound: return statusCode
-  //     break;
-  //     default: httpErrorHandler(statusCode, 'MovieNotFound')
-  //  }
+  })  
   const handle = [
-    { action: 'Toast', message: 'Sucesssao' },
-    { action: 'Email', message: 'Erro Email' }
+    { action: 'MovieNotFound' }    
   ]
-  return httpErrorHandler(httpResponse, handle)
-  //  if(statusCode === 404) return statusCode  
+  return httpResponseHandler(httpResponse, handle)   
 }
 
 export async function saveMovie(movie: any) {

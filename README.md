@@ -6,13 +6,13 @@ The main objective of this project is to convert an APP built using React-Javasc
 
 **From:**
 
-- React 16 (using mount/dimount)
+- React 16 (using classes, mount/dimount)
 - Javascript (no types)
 - Bootstrap 5 (built in styles)
 
 **To:**
 
-- React 17 (using useEffect, useState)
+- React 17 (using functions, useEffect, useState)
 - Typescript (hard typed)
 - css, scss ([https://sass-lang.com/guide](https://sass-lang.com/guide))
 
@@ -30,6 +30,14 @@ Vidly is a movie rent plataform where you can manage movies, customers, rents an
 - Jest
 
 
-## What was archieve so far
+## What was archieve so far - challanges
 
-The challanges were really present. Many research had to be done to convert from react 16 to react 17. Using useState and useEffect with objects comparsion imposed a good challange, because they become different every time a render occur. 
+The challanges were really present. Many research had to be done to convert from react 16 to react 17. Using useState and useEffect with objects comparsion imposed a good challange, because they become different every time a render occur.
+
+**Archievements:**
+
+- Made a single File to handle routes, mapping it in App.tsx.
+- Used a decorator do intercept unexpected errors from http service.
+- Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
+- Implemented an http adapter using axios
+- Implemented an Log Repository using mongo

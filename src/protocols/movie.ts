@@ -1,5 +1,5 @@
 export type MovieParams = {
-  _id: string
+  _id?: string
   title: string
   genre: {
     _id: string
@@ -11,7 +11,7 @@ export type MovieParams = {
 }
 
 export type MovieFormParams = {
-  _id: string
+  _id?: string
   title: string
   genreId: string    
   numberInStock: number

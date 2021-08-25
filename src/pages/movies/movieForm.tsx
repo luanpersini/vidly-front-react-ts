@@ -2,14 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Button, CancelButton, Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
-import { httpErrorHandler } from '../../infra/http/http-error-handler'
-import { getGenres, getMovie } from '../../infra/services'
-import {
-  GenreParams,
-  MovieFormParams,
-  MovieParams,
-  Page
-} from '../../protocols'
+import { getGenres, getMovie, saveMovie } from '../../infra/services'
+import { GenreParams, MovieFormParams, MovieParams, Page } from '../../protocols'
 import { HttpStatusCode } from '../../protocols/http'
 // import { getMovie, saveMovie } from '../../infra/services/movieService'
 interface FormErrors {
@@ -27,37 +21,44 @@ export function MovieForm(props: Page) {
 
   let title = props.title
   const { id: movieId } = useParams<{ id: string }>()
-
+  if (movieId === 'new') {
+    title = 'New Movie'
+  } 
   useEffect(() => {
     (async () => {
       const genres = await getGenres()
       setGenres(genres)
-      if (movieId === 'new') {
-        title = 'New Movie'
-      } else {
-        try{
-        const movie = await getMovie(movieId)
-        if (HttpStatusCode.notFound === movie) {
-          history.replace('/not-found/movie_not_found')
-          return
-        }        
-        setMovie(mapToViewModel(movie))
-      }catch (error: any) {
-        history.replace('/movies')        
-        httpErrorHandler(error)                             
+      if (movieId !== 'new') {        
+        try {
+          const movie = await getMovie(movieId)
+          if (HttpStatusCode.notFound === movie) {
+            history.replace('/not-found')
+            return
+          }
+          setMovie(mapToViewModel(movie))
+        } catch (error: any) {
+          // history.replace('/movies')          
+        }
       }
-    }
     })()
   }, [])
 
-  function handleSubmit() {
-    console.log('lalalal -------')
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    async function handleSubmit (event: React.FormEvent<HTMLFormElement>): Promise<void> { 
+    event.preventDefault()
+    try {
+      await saveMovie(movie)
+    } catch (error: any) {              
+    }       
     history.push('/movies')
-  }
+  } 
 
-  function handleCancel() {
-    console.log('canceled-------')
-    history.goBack()
+  
+  function handleChange({ currentTarget: input }: any) {
+    console.log('changed-------')  
+    const data: any = { ...movie };
+    data[input.name] = input.value; 
+    setMovie(data)
   }
   function mapToViewModel(movie: MovieParams) {
     return {
@@ -71,22 +72,17 @@ export function MovieForm(props: Page) {
 
   console.log('111' + JSON.stringify(errors))
   console.log('222' + JSON.stringify(movie))
-  // inputValues={movie}
+  
   return (
     <div>
       <Title title={title} />
       <form onSubmit={handleSubmit}>
-        <Input name="title" label="Title" errors={errors} />
-        <Select name="genreId" label="Genre" options={genres} errors={errors} />
-        <Input
-          name="numberInStock"
-          label="Number in Stock"
-          type="number"
-          errors={errors}
-        />
-        <Input name="dailyRentalRate" label="Rate" errors={errors} />
-        <CancelButton />
-        <Button label="Submit" />
+        <Input name="title" label="Title" errors={errors} onChange={handleChange} inputvalue={movie} />
+        <Select name="genreId" label="Genre" options={genres} errors={errors} onChange={handleChange} inputvalue={movie} />
+        <Input name="numberInStock" label="Number in Stock" type="number" errors={errors} onChange={handleChange} inputvalue={movie}/>
+        <Input name="dailyRentalRate" label="Rate" errors={errors} onChange={handleChange} inputvalue={movie}/>
+        <CancelButton label="Return" onClick={() => history.push("/movies")} />
+        <Button type="submit" label="Submit" />
       </form>
     </div>
   )

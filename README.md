@@ -36,8 +36,9 @@ The challanges were really present. Many research had to be done to convert from
 
 **Archievements:**
 
-- Made a single File to handle routes, mapping it in App.tsx.
-- Used a decorator do intercept unexpected errors from http service.
+- Made a single File to handle routes, mapping it inside App.tsx.
+- Implemented an abstraction to http calls (AxiosHttpAdapter)
+- Used a decorator to intercept unexpected errors from http service.
+- Implemented a Log Service using a Decorator to intercept unexpected errors from http calls. (log-http-decorator)  
 - Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
-- Implemented an http adapter using axios
-- Implemented an Log Repository using mongo
+- Implemented an abstraction to validate schemas (YupAdapter)

@@ -15,12 +15,17 @@ export function MovieForm(props: Page) {
   const history = useHistory()
   const [genres, setGenres] = useState<GenreParams[]>([])
   const [errors, setErrors] = React.useState<any[]>([])
-  const [movie, setMovie] = useState<MovieFormParams | undefined>(undefined)
+  const [movie, setMovie] = useState<MovieFormParams | undefined>({
+    title: undefined,
+    genreId: undefined,
+    numberInStock: undefined,
+    dailyRentalRate: undefined
+  })
 
   let title = props.title
   const { id: movieId } = useParams<{ id: string }>()
-  if(movieId === 'new') title = 'New Movie'
-  
+  if (movieId === 'new') title = 'New Movie'
+
   useEffect(() => {
     (async () => {
       try {
@@ -47,17 +52,47 @@ export function MovieForm(props: Page) {
   }
 
   async function validateProperty({ name, value }: any) {
-    const obj = { [name]: value }
+    const fixedValue: any = value === null || value === '' ? undefined : value
+    const obj = { [name]: fixedValue }
     const schema = Yup.object().shape({ [name]: validationSchema[name] })
     const error = await schema
       .validate(obj)
       .then(function (value: any) {
-        console.log(value)
+        return undefined
       })
       .catch(function (err: any) {
         return err.message
       })
     return error
+  }
+
+  async function validate(obj: any) {
+    let error: any = { ...errors }
+
+    await Promise.all(
+      Object.entries(obj).map(async (item: any) => {
+        const key = item[0]
+        const value = item[1]
+        const data = { name: key, value: value }
+        const errorMessage = await validateProperty(data)
+        if (errorMessage !== undefined) error[key] = errorMessage
+      })
+    )
+    if(Object.entries(error).length === 0) error = undefined
+    
+    return error
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault()
+    const errors = await validate(movie)
+    setErrors(errors)
+    console.log('errors ---xxx--' + JSON.stringify(errors))
+    if (errors) return
+    try {
+      await saveMovie(movie)
+      history.push('/movies')
+    } catch (error: any) {}
   }
 
   async function handleChange({ currentTarget: input }: any) {
@@ -72,15 +107,6 @@ export function MovieForm(props: Page) {
     else delete errorsFound[input.name]
     setErrors(errorsFound)
     console.log('err found - ' + JSON.stringify(errorsFound))
-  }    
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault()
-    try {
-      await saveMovie(movie)
-    } catch (error: any) {}
-    history.push('/movies')
   }
 
   function mapToViewModel(movie: MovieParams) {
@@ -93,8 +119,8 @@ export function MovieForm(props: Page) {
     }
   }
 
-  console.log('111' + JSON.stringify(errors))
-  console.log('222' + JSON.stringify(movie))
+  // console.log('111' + JSON.stringify(errors))
+  // console.log('222' + JSON.stringify(movie))
 
   return (
     <div>
@@ -146,48 +172,33 @@ export function MovieForm(props: Page) {
     for (const item of error.details) errors[item.path[0]] = item.message;
     return errors;
   };
-
-  validateProperty = ({ name, value }) => {
-    const obj = { [name]: value };
-    const schema = { [name]: this.schema[name] };
-    const { error } = Joi.validate(obj, schema);
-    return error ? error.details[0].message : null;
-  };
-
-  schema = {
-    _id: Joi.string(),
-    title: Joi.string().required().min(2).max(100).label('Title'),
-    genreId: Joi.string().required().label('Genre'),
-    numberInStock: Joi.number().required().min(0).max(100).label('Number in Stock'),
-    dailyRentalRate: Joi.number().required().min(0).max(10).label('Daily Rental Rate')
-  }
-
-  const validationSchema = Yup.object({
-    product: Yup.string().required("Please select a product").oneOf(products),
-    name: Yup.string().required(),
-    email: Yup.string().email().required(),
-    title: Yup.string().required(),
-    review: Yup.string().required(),
-    rating: Yup.number().min(1).max(10).required(),
-    date: Yup.date().default(() => new Date()),
-    wouldRecommend: Yup.boolean().default(false),
-  });
-
-  render() {
-    return (
-      <div>
-        <h1>Movie Form</h1>
-        <form onSubmit={this.handleSubmit}>
-          {this.renderInput('title', 'Title')}    
-          {this.renderSelect('genreId', 'Genre', this.state.genres)}
-          {this.renderInput('numberInStock', 'Number in Stock', 'number')}
-          {this.renderInput('dailyRentalRate', 'Rate')}
-          {this.renderButton('Save')}
-        </form>
-      </div>
-    )
-  }
-}
-
-export default MovieForm
 */
+
+/*
+  async function validate(obj: any) {    
+    // setErrors([])
+    const error: any = { ...errors }
+    const schema = Yup.object().shape(validationSchema)
+    const data: any = {}
+    const a = 0
+       
+    console.log('BEFORE')
+      await Promise.all(Object.entries(obj).map(async (item: any) => {
+      
+      const key = item[0]
+      const value = item[1]         
+      const data = { name: key, value: value }
+      const errorMessage = await validateProperty(data)
+      if (errorMessage !== undefined) console.log('errorMessage  ----' + key + '  -  ' + errorMessage)
+      if (errorMessage !== undefined) error[key] = errorMessage
+      })).then(value => {
+        console.log('THEN')
+        console.log('error ----' + JSON.stringify(error))        
+        setErrors(error)
+        console.log('errors ---xxx--' + JSON.stringify(errors))
+      })
+      console.log('AFTER')  
+      return error   
+    
+  }
+  */

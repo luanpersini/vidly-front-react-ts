@@ -14,8 +14,7 @@ export function Select(props: Props) {
   const { name, errors, id, label, className, options, inputvalue } = props
 
   const labelName = label === undefined ? name : label
-  console.log('inpt value -- ' + JSON.stringify(inputvalue));
-  
+   
   return (
     <div className="form-group">
       <label htmlFor={name}>{labelName}</label>

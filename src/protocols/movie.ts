@@ -12,8 +12,8 @@ export type MovieParams = {
 
 export type MovieFormParams = {
   _id?: string
-  title: string
-  genreId: string    
-  numberInStock: number
-  dailyRentalRate: number 
+  title: string | undefined
+  genreId: string | undefined   
+  numberInStock: number | undefined
+  dailyRentalRate: number | undefined 
 }

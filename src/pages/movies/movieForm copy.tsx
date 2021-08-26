@@ -4,11 +4,14 @@ import * as Yup from 'yup'
 import { Button, CancelButton, Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
 import { getGenres, getMovie, saveMovie } from '../../infra/services'
-import { Validate } from '../../infra/validation/validate-adapter-factory'
 import { GenreParams, MovieFormParams, MovieParams, Page } from '../../protocols'
 import { HttpStatusCode } from '../../protocols/http'
+// import { getMovie, saveMovie } from '../../infra/services/movieService'
+interface FormErrors {
+  name: string
+  message: string
+}
 
-const validate = Validate()
 //TODO
 //add old state and compare to avoid updates without changes
 //add delete movie
@@ -45,19 +48,52 @@ export function MovieForm(props: Page) {
       } catch (error: any) {}
     })()
   }, [])
-  const numberErrorMsg = '${label} must be a number.'
+
   const validationSchema: any = {
     _id: Yup.string(),
     title: Yup.string().required().min(2).max(100).label('Title'),
     genreId: Yup.string().required().label('Genre'),
-    numberInStock: Yup.number().typeError(numberErrorMsg).required().min(0).max(100).label('Number in Stock'),
-    dailyRentalRate: Yup.number().typeError(numberErrorMsg).required().min(0).max(10).label('Daily Rental Rate')
+    numberInStock: Yup.number().required().min(0).max(100).label('Number in Stock'),
+    dailyRentalRate: Yup.number().required().min(0).max(10).label('Daily Rental Rate')
   }
-  
+
+  async function validateProperty({ name, value }: any) {
+    const fixedValue: any = value === null || value === '' ? undefined : value
+    const obj = { [name]: fixedValue }
+    const schema = Yup.object().shape({ [name]: validationSchema[name] })
+    const error = await schema
+      .validate(obj)
+      .then(function (value: any) {
+        return undefined
+      })
+      .catch(function (err: any) {
+        return err.message
+      })
+    return error
+  }
+
+  async function validate(obj: any) {
+    let error: any = { ...errors }
+
+    await Promise.all(
+      Object.entries(obj).map(async (item: any) => {
+        const key = item[0]
+        const value = item[1]
+        const data = { name: key, value: value }
+        const errorMessage = await validateProperty(data)
+        if (errorMessage !== undefined) error[key] = errorMessage
+      })
+    )
+    if(Object.entries(error).length === 0) error = undefined
+    
+    return error
+  }
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
-    const errorsFound = await validate.Many(movie, validationSchema)
-    setErrors(errorsFound)    
+    const errors = await validate(movie)
+    setErrors(errors)
+    console.log('errors ---xxx--' + JSON.stringify(errors))
     if (errors) return
     try {
       await saveMovie(movie)
@@ -67,16 +103,16 @@ export function MovieForm(props: Page) {
 
   async function handleChange({ currentTarget: input }: any) {
     const data: any = { ...movie }
-    const {name, value} = input
-    data[name] = value
+    data[input.name] = input.value
     setMovie(data)
 
     const errorsFound = { ...errors }
-    const errorMessage = await validate.One(name, value, validationSchema)
+    const errorMessage = await validateProperty(input)
 
     if (errorMessage) errorsFound[input.name] = errorMessage
     else delete errorsFound[input.name]
-    setErrors(errorsFound)   
+    setErrors(errorsFound)
+    console.log('err found - ' + JSON.stringify(errorsFound))
   }
 
   function mapToViewModel(movie: MovieParams) {
@@ -121,7 +157,7 @@ export function MovieForm(props: Page) {
         />
         <Input
           name="dailyRentalRate"
-          label="Rate"          
+          label="Rate"
           errors={errors}
           onChange={handleChange}
           inputvalue={movie}
@@ -132,3 +168,43 @@ export function MovieForm(props: Page) {
     </div>
   )
 }
+/*
+  validate = () => {
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.state.data, this.schema, options);
+    if (!error) return null;
+
+    const errors = {};
+    for (const item of error.details) errors[item.path[0]] = item.message;
+    return errors;
+  };
+*/
+
+/*
+  async function validate(obj: any) {    
+    // setErrors([])
+    const error: any = { ...errors }
+    const schema = Yup.object().shape(validationSchema)
+    const data: any = {}
+    const a = 0
+       
+    console.log('BEFORE')
+      await Promise.all(Object.entries(obj).map(async (item: any) => {
+      
+      const key = item[0]
+      const value = item[1]         
+      const data = { name: key, value: value }
+      const errorMessage = await validateProperty(data)
+      if (errorMessage !== undefined) console.log('errorMessage  ----' + key + '  -  ' + errorMessage)
+      if (errorMessage !== undefined) error[key] = errorMessage
+      })).then(value => {
+        console.log('THEN')
+        console.log('error ----' + JSON.stringify(error))        
+        setErrors(error)
+        console.log('errors ---xxx--' + JSON.stringify(errors))
+      })
+      console.log('AFTER')  
+      return error   
+    
+  }
+  */

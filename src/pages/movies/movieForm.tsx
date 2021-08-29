@@ -4,18 +4,19 @@ import * as Yup from 'yup'
 import { Button, CancelButton, Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
 import { getGenres, getMovie, saveMovie } from '../../infra/services'
-import { Validate } from '../../infra/validation/validate-adapter-factory'
+import { Validate } from '../../infra/validation/validate-factory'
 import { GenreParams, MovieFormParams, MovieParams, Page } from '../../protocols'
 import { HttpStatusCode } from '../../protocols/http'
 
-const validate = Validate()
 //TODO
 //add Tests to Validate - Yup Adapter
 //add old state and compare to avoid updates without changes
 //add delete movie
 //add optmistic update aproach
+//add submit enabled/disabled
 
 export function MovieForm(props: Page) {
+  const validate = Validate()
   const history = useHistory()
   const [genres, setGenres] = useState<GenreParams[]>([])
   const [errors, setErrors] = React.useState<any[]>([])
@@ -67,10 +68,10 @@ export function MovieForm(props: Page) {
   }
 
   async function handleChange({ currentTarget: input }: any) {
-    const data: any = { ...movie }
+    const formData: any = { ...movie }
     const {name, value} = input
-    data[name] = value
-    setMovie(data)
+    formData[name] = value
+    setMovie(formData)
 
     const errorsFound = { ...errors }
     const errorMessage = await validate.One(name, value, validationSchema)

@@ -18,9 +18,11 @@ export const auth = {
       method: 'post',
       body: { email: email, password: password }
     })
-
-    const jwt = await httpResponseHandler(httpResponse)
-    localStorage.setItem(tokenKey, jwt)
+    const handle = [
+      { action: 'InvalidCredentials'}    
+    ]
+    const jwt = await httpResponseHandler(httpResponse, handle)
+    localStorage.setItem(tokenKey, jwt)    
   },
 
   async getCurrentUser() {

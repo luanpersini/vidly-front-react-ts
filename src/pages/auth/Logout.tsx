@@ -1,9 +1,7 @@
 import { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { auth } from '../../infra/services/authService'
 
-export function Logout() {
-  const history = useHistory()
+export function Logout() {  
   useEffect(() => {
     (async () => {
       auth.logout()

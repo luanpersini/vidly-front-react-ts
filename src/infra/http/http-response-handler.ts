@@ -2,10 +2,13 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { HttpResponse, HttpStatusCode } from '../../protocols/http'
 import { MovieNotFound } from '../../utils/errors'
+import { BadRequestError } from '../../utils/errors/bad-request-error'
+import { InvalidCredentials } from '../../utils/errors/error-messages'
+
 
 type HandleParams = {
   action?: string | undefined
-  message?: string | undefined
+  customMessage?: string | undefined
 }
 
 export async function httpResponseHandler( httpResponse: HttpResponse, handle?: HandleParams[]): Promise<any> {
@@ -13,11 +16,12 @@ export async function httpResponseHandler( httpResponse: HttpResponse, handle?: 
   let message = httpResponse.body
   const statusCode = httpResponse.statusCode
     
-  const handleItems = (!handle) ? [{action: 'none', message: 'none'}]: handle 
+  const handleItems = (!handle) ? [{action: 'none', customMessage: 'none'}]: handle 
     
   handleItems?.forEach((handle) => {
-    const { message: customMessage, action } = handle
-
+    const { customMessage, action } = handle
+    console.log('customMessage' + customMessage);
+    
     if (statusCode >= 200 && statusCode <= 299) {
       if (action === 'Success') {
         message = !customMessage || customMessage === '' ? 'Success' : message
@@ -42,6 +46,17 @@ export async function httpResponseHandler( httpResponse: HttpResponse, handle?: 
         message = !customMessage || customMessage === '' ? message : customMessage
         toast.error(message)
       }
+    }
+
+    if (statusCode === HttpStatusCode.badRequest) {           
+      if (action === 'BadRequest') {
+        message = !customMessage || customMessage === '' ? message : customMessage
+        toast.error(message)
+      }
+      if (action === 'InvalidCredentials') {
+        message = !customMessage || customMessage === '' ? InvalidCredentials : customMessage     
+      } 
+      throw new BadRequestError(message)       
     }
   }) 
   return data

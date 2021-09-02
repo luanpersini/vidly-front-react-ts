@@ -1,9 +1,9 @@
-import { Customers } from '../components/customers'
-import { NotFound } from '../components/notFound'
+import { NotFound } from '../components/common/not-found'
 import { Route } from '../interfaces/route'
 import { Login } from '../pages/auth/Login'
 import { Logout } from '../pages/auth/Logout'
 import { Register } from '../pages/auth/Register'
+import { Customers } from '../pages/customers'
 import { MovieForm } from '../pages/movies/movieForm'
 import { Movies } from '../pages/movies/Movies'
 

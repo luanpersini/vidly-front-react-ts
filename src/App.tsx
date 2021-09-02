@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-import { AuthRoute } from './components/common/auth-route'
-import NavBar from './components/navBar'
+import { ProtectedRoute } from './components/common/protected-route'
+import NavBar from './components/template/navbar'
 import routes from './config/routes'
 import { auth } from './infra/services/authService'
 import { UserJwtParams } from './interfaces'
@@ -35,9 +35,9 @@ const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
                 path={route.path}                
                 exact={route.exact}
                 render={(props: RouteComponentProps<any>) => (
-                  <AuthRoute from={location.pathname} >
+                  <ProtectedRoute from={location.pathname} >
                   <route.component title={route.title} {...props} {...route.props} />
-                  </AuthRoute>
+                  </ProtectedRoute>
                 )}
               />
             )

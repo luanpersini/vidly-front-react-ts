@@ -43,4 +43,4 @@ The challanges were really present. Many research had to be done to convert from
 - Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
 - Implemented an abstraction to validate schemas (YupAdapter)
 - Implemented a dinamic route system.
-- Made a component to protect the routes (AuthRoute).
+- Made a component to check if the user is autenticated to access restricted routes (ProtectedRoute).

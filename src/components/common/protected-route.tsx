@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { auth } from '../../infra/services/authService'
 import { UserJwtParams } from '../../interfaces'
 
-export function AuthRoute(props: any) {
+export function ProtectedRoute(props: any) {
   const { children } = props
   const previousLocation = props.from
   const [user, setUser] = useState<UserJwtParams>({name: ''})

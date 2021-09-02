@@ -30,6 +30,10 @@ export const auth = {
     } catch (ex) {
       return null
     }
+  },
+
+   logout() {
+    localStorage.removeItem(tokenKey);
   }
 }
 

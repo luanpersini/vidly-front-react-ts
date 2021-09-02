@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { HttpResponse, HttpStatusCode } from '../../protocols/http'
+import { HttpResponse, HttpStatusCode } from '../../interfaces/http'
 import { MovieNotFound } from '../../utils/errors'
 import { BadRequestError } from '../../utils/errors/bad-request-error'
 import { InvalidCredentials } from '../../utils/errors/error-messages'

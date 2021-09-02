@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { auth } from '../../infra/services/authService'
-import { UserJwtParams } from '../../protocols'
+import { UserJwtParams } from '../../interfaces'
 
 export function AuthRoute(props: any) {
   const { children } = props

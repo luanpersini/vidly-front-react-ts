@@ -5,7 +5,7 @@ import { AuthRoute } from './components/common/auth-route'
 import NavBar from './components/navBar'
 import routes from './config/routes'
 import { auth } from './infra/services/authService'
-import { UserJwtParams } from './protocols'
+import { UserJwtParams } from './interfaces'
 
 const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
   const [user, setUser] = useState<UserJwtParams>({name: ''})

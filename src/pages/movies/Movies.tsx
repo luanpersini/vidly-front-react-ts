@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { ListGroup, Pagination, SearchBox } from '../../components/common'
 import { Title } from '../../components/template'
 import { getGenres, getMovies } from '../../infra/services'
-import { GenreParams, MovieParams, Page, UserParams } from '../../protocols'
+import { GenreParams, MovieParams, Page, UserParams } from '../../interfaces'
 import { paginate } from '../../utils/paginate'
 import MoviesTable from './moviesTable'
 

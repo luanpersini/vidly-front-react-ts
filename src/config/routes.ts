@@ -1,11 +1,11 @@
 import { Customers } from '../components/customers'
 import { NotFound } from '../components/notFound'
+import { Route } from '../interfaces/route'
 import { Login } from '../pages/auth/Login'
 import { Logout } from '../pages/auth/Logout'
-import Register from '../pages/auth/Register'
+import { Register } from '../pages/auth/Register'
 import { MovieForm } from '../pages/movies/movieForm'
 import { Movies } from '../pages/movies/Movies'
-import { Route } from '../protocols/route'
 
 const user = {
   _id: { $oid: '60a178327476cd104886862f' },

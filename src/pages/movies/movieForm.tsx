@@ -5,8 +5,8 @@ import { Button, CancelButton, Input, Select } from '../../components/form'
 import { Title } from '../../components/template/page-title'
 import { getGenres, getMovie, saveMovie } from '../../infra/services'
 import { Validate } from '../../infra/validation/validate-factory'
-import { GenreParams, MovieFormParams, MovieParams, Page } from '../../protocols'
-import { HttpStatusCode } from '../../protocols/http'
+import { GenreParams, MovieFormParams, MovieParams, Page } from '../../interfaces'
+import { HttpStatusCode } from '../../interfaces/http'
 
 //TODO
 //tratar bad request

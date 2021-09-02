@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { HttpResponse, HttpStatusCode } from '../../protocols/http'
+import { HttpResponse, HttpStatusCode } from '../../interfaces/http'
 import { UnexpectedError } from '../../utils/errors'
 
 export async function httpUnexpectedErrorHandler( httpResponse: HttpResponse): Promise<void> {

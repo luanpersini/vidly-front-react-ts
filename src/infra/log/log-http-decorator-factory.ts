@@ -1,4 +1,4 @@
-import { HttpClient } from "../../protocols/http"
+import { HttpClient } from "../../interfaces/http"
 import { LogHttpDecorator } from "./log-http-decorator"
 import { LogMongoRepository } from "./log-mongo-repository"
 

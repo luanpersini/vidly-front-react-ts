@@ -6,7 +6,7 @@ import { FormSubmitErrorMessage } from '../../components/form/form-submit-error-
 import { Title } from '../../components/template'
 import { auth } from '../../infra/services/authService'
 import { Validate } from '../../infra/validation/validate-factory'
-import { Page } from '../../protocols'
+import { Page } from '../../interfaces'
 
 export function Login(props: Page) {
   const validate = Validate()
@@ -21,7 +21,7 @@ export function Login(props: Page) {
   })
 
   const validationSchema: any = {
-    email: Yup.string().required().min(5).max(50).email().label('Email'),
+    email: Yup.string().required().max(80).email().label('Email'),
     password: Yup.string().required().min(5).max(25).label('Password')
   }
 
@@ -38,8 +38,7 @@ export function Login(props: Page) {
     if (errorMessage) {
       errorsFound[input.name] = errorMessage
     } else delete errorsFound[input.name]
-    setErrors(errorsFound)
-    console.log(errors)
+    setErrors(errorsFound)   
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {

@@ -44,13 +44,11 @@ export function Login(props: Page) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
-    const { from: previousLocation }: any = location.state
-    console.log('handle sub')
-    console.log(previousLocation)
-
+    const { from: previousLocation }: any = (location.state !== null) ? location.state : "/"
+    
     try {
       await auth.login(data.username, data.password)
-      if (previousLocation !== '/login') {
+      if (previousLocation !== '/login' && previousLocation !== undefined) {
         window.location = previousLocation as unknown as Location
       } else {
         window.location = '/' as unknown as Location

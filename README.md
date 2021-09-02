@@ -42,3 +42,5 @@ The challanges were really present. Many research had to be done to convert from
 - Implemented a Log Service using a Decorator to intercept unexpected errors from http calls. (log-http-decorator)  
 - Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
 - Implemented an abstraction to validate schemas (YupAdapter)
+- Implemented a dinamic route system.
+- Made a component to protect the routes (AuthRoute).

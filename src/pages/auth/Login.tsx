@@ -14,15 +14,14 @@ import { HttpStatusCode } from '../../protocols/http'
 export function Login(props: Page) {
   const validate = Validate()
   const history = useHistory()
-  const location = useLocation();
-  
+  const location = useLocation()
+
   const [errors, setErrors] = React.useState<any[]>([])
   const [data, setData] = useState({
     username: undefined,
     password: undefined
   })
-  console.log('location -- ' + location);
-  
+
   const validationSchema: any = {
     username: Yup.string().required().min(4).max(50).label('Username'),
     password: Yup.string().required().min(6).max(25).label('Password')
@@ -45,19 +44,19 @@ export function Login(props: Page) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
-    const { from: previousLocation}: any = location.state
-    console.log('handle sub');
-    console.log(previousLocation);
-   
+    const { from: previousLocation }: any = location.state
+    console.log('handle sub')
+    console.log(previousLocation)
+
     try {
-      await auth.login(data.username, data.password)      
+      await auth.login(data.username, data.password)
       if (previousLocation !== '/login') {
-        history.replace(previousLocation)
-      }else{
-        history.replace("/")
-      }       
+        window.location = previousLocation as unknown as Location
+      } else {
+        window.location = '/' as unknown as Location
+      }
     } catch (error: any) {
-      console.log(error);
+      console.log(error)
       if (error.response && error.response.status === HttpStatusCode.badRequest) {
         //Se BadRequest, enviar mensagem "Invalid Username or Password "
         // const errors = { ...this.state.errors };

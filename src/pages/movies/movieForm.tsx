@@ -6,7 +6,7 @@ import { Title } from '../../components/template/page-title'
 import { getGenres, getMovie, saveMovie } from '../../infra/services'
 import { Validate } from '../../infra/validation/validate-factory'
 import { GenreParams, MovieFormParams, MovieParams, Page } from '../../interfaces'
-import { HttpStatusCode } from '../../interfaces/http'
+import { HttpStatusCode } from '../../interfaces/http-client'
 
 //TODO
 //tratar bad request
@@ -57,28 +57,12 @@ export function MovieForm(props: Page) {
     dailyRentalRate: Yup.number().typeError(numberErrorMsg).required().min(0).max(10).label('Daily Rental Rate')
   }
   
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
-    event.preventDefault()
-    const errorsFound = await validate.Many(movie, validationSchema)
-    setErrors(errorsFound)    
-    if (errors) return
-    try {
-      await saveMovie(movie)
-      history.push('/movies')
-    } catch (error: any) {}
-  }
-
-  async function handleChange({ currentTarget: input }: any) {
+   async function handleChange({ currentTarget: input }: any) {
     const formData: any = { ...movie }
     const {name, value} = input
     formData[name] = value
     setMovie(formData)
 
-    // const errorsFound = await validate.One(name, value, validationSchema)
-    // console.log(errorsFound);
-    
-    // setErrors(errorsFound)
-    
     const errorsFound = { ...errors }
     const errorMessage = await validate.One(name, value, validationSchema)
 
@@ -86,7 +70,20 @@ export function MovieForm(props: Page) {
     else delete errorsFound[input.name]
     setErrors(errorsFound)   
   }
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault()
+    const errorsFound = await validate.Many(movie, validationSchema)
+    setErrors(errorsFound)    
+    
+    //return to render the page again and show the errors before reaching the server
+    if (Object.keys(errors).length > 0) return
+    if(movie?.title === '') return
 
+    try {
+      await saveMovie(movie)
+      history.push('/movies')
+    } catch (error: any) {}
+  }
   function mapToViewModel(movie: MovieParams) {
     return {
       _id: movie._id,
@@ -96,9 +93,6 @@ export function MovieForm(props: Page) {
       dailyRentalRate: movie.dailyRentalRate
     }
   }
-
-  // console.log('111' + JSON.stringify(errors))
-  // console.log('222' + JSON.stringify(movie))
 
   return (
     <div>

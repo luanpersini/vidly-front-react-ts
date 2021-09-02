@@ -8,8 +8,6 @@ import { auth } from '../../infra/services/authService'
 import { Validate } from '../../infra/validation/validate-factory'
 import { Page } from '../../protocols'
 
-///FAZER AOS POUCOS - ADICIONANDO AS FUNCIONALIDADES
-// export const Login: React.FC<Page> = props => {
 export function Login(props: Page) {
   const validate = Validate()
   const history = useHistory()
@@ -18,15 +16,15 @@ export function Login(props: Page) {
   const [errors, setErrors] = React.useState<any[]>([])
   const [submitErrors, setSubmitErrors] = React.useState<string | undefined>(undefined)
   const [data, setData] = useState({
-    email: undefined,
-    password: undefined
+    email: '',
+    password: ''
   })
 
   const validationSchema: any = {
     email: Yup.string().required().min(5).max(50).email().label('Email'),
     password: Yup.string().required().min(5).max(25).label('Password')
   }
-  
+
   async function handleChange({ currentTarget: input }: any) {
     setSubmitErrors(undefined)
     const formData: any = { ...data }
@@ -38,9 +36,8 @@ export function Login(props: Page) {
     const errorMessage = await validate.One(name, value, validationSchema)
 
     if (errorMessage) {
-      errorsFound[input.name] = errorMessage      
-    }
-    else delete errorsFound[input.name]
+      errorsFound[input.name] = errorMessage
+    } else delete errorsFound[input.name]
     setErrors(errorsFound)
     console.log(errors)
   }
@@ -63,8 +60,8 @@ export function Login(props: Page) {
         window.location = previousLocation as unknown as Location
       } else {
         window.location = '/' as unknown as Location
-      }      
-    } catch (error: any) {     
+      }
+    } catch (error: any) {
       setSubmitErrors(error.message)
     }
   }
@@ -74,7 +71,7 @@ export function Login(props: Page) {
   getCurrentUser().then((user) => {
     if (user) history.replace('/')
   })
-   return (
+  return (
     <div>
       <Title title={props.title} />
       <form onSubmit={handleSubmit}>
@@ -93,9 +90,9 @@ export function Login(props: Page) {
           onChange={handleChange}
           inputvalue={data}
         />
-        <FormSubmitErrorMessage submitErrors={submitErrors}/>
-        <Button type="submit" label="Login" /> 
-         </form>
+        <FormSubmitErrorMessage submitErrors={submitErrors} />
+        <Button type="submit" label="Login" />
+      </form>
     </div>
   )
 }

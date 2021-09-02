@@ -1,4 +1,4 @@
-import { HttpClient, HttpRequest, HttpResponse } from '../../interfaces/http';
+import { HttpClient, HttpRequest, HttpResponse } from '../../interfaces/http-client';
 import { httpUnexpectedErrorHandler } from '../http/http-unexpected-error-handler';
 import { LogErrorRepository } from './log-error-repository';
 

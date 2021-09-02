@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { HttpResponse, HttpStatusCode } from '../../interfaces/http'
+import { HttpResponse, HttpStatusCode } from '../../interfaces/http-client'
 import { MovieNotFound } from '../../utils/errors'
 import { BadRequestError } from '../../utils/errors/bad-request-error'
 import { InvalidCredentials } from '../../utils/errors/error-messages'
@@ -11,7 +11,7 @@ type HandleParams = {
   customMessage?: string | undefined
 }
 
-export async function httpResponseHandler( httpResponse: HttpResponse, handle?: HandleParams[]): Promise<any> {
+export function httpResponseHandler( httpResponse: HttpResponse, handle?: HandleParams[]) {
   let data: any = []
   let message = httpResponse.body
   const statusCode = httpResponse.statusCode

@@ -10,9 +10,7 @@ const tokenKey = 'token'
 // http.setJwt(getJwt())
 
 export const auth = {
-  async login(email: any, password: any) {
-    console.log('email --- ' + email)
-    console.log('password --- ' + password)
+  async login(email: any, password: any) {    
     const httpResponse = await http.request({
       url: apiEndpoint,
       method: 'post',
@@ -21,7 +19,7 @@ export const auth = {
     const handle = [
       { action: 'InvalidCredentials'}    
     ]
-    const jwt = await httpResponseHandler(httpResponse, handle)
+    const jwt = httpResponseHandler(httpResponse, handle)
     localStorage.setItem(tokenKey, jwt)    
   },
 
@@ -36,7 +34,7 @@ export const auth = {
 
    logout() {
     localStorage.removeItem(tokenKey);
-  }
+  }  
 }
 
 /*

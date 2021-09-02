@@ -1,6 +1,6 @@
 import axios from 'axios'
 import faker from 'faker'
-import { HttpRequest } from '../../interfaces/http'
+import { HttpRequest } from '../../interfaces/http-client'
 
 export const mockHttpResponse = (): any => ({
   data: faker.random.objectElement(),

@@ -1,9 +1,9 @@
 import { apiUrl } from '../../config.json'
 import { httpResponseHandler } from '../http/http-response-handler'
 import { Http } from './httpService'
-
-const apiEndpoint = apiUrl + '/movies'
 const http = Http()
+const apiEndpoint = apiUrl + '/movies'
+
 
 function movieUrl(id: any) {
   return `${apiEndpoint}/${id}`

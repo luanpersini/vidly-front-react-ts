@@ -1,6 +1,6 @@
 import { Customers } from '../components/customers'
 import { NotFound } from '../components/notFound'
-import Login from '../pages/auth/Login'
+import { Login } from '../pages/auth/Login'
 import Logout from '../pages/auth/Logout'
 import Register from '../pages/auth/Register'
 import { MovieForm } from '../pages/movies/movieForm'
@@ -20,6 +20,7 @@ const mainRoutes: Route[] = [
     title: 'Movies',
     component: Movies,
     exact: true,
+    auth: false,
     props: { user: user }
   },
   {
@@ -27,17 +28,20 @@ const mainRoutes: Route[] = [
     title: 'Movies',
     component: Movies,
     exact: true,
+    auth: false,
     props: { user: user }
   },
   {
     path: '/movies/:id',
     title: 'Edit Movie',
+    auth: true,
     component: MovieForm,
     exact: true
   },
   {
     path: '/customers',
     title: 'Customers',
+    auth: false,
     component: Customers,
     exact: true
   }
@@ -48,19 +52,22 @@ const authRoutes: Route[] = [
     path: '/register',
     title: 'Register',
     component: Register,
-    exact: true
+    exact: true,
+    auth: false
   },
   {
     path: '/login',
     title: 'Login',
     component: Login,
-    exact: true
+    exact: true,
+    auth: false
   },
   {
     path: '/logout',
     title: 'Logout',
     component: Logout,
-    exact: true
+    exact: true,
+    auth: false
   }
 ]
 
@@ -69,13 +76,15 @@ const notFound: Route[] = [
     path: '/notfound/:id',
     title: 'Not Found',
     component: NotFound,
-    exact: true
+    exact: true,
+    auth: false
   },
   {
     path: '*',
     title: 'Not Found',
     component: NotFound,
-    exact: true
+    exact: true,
+    auth: false
   }
 ]
 const routes: Route[] = [...mainRoutes, ...authRoutes, ...notFound]

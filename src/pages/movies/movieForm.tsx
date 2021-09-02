@@ -9,6 +9,7 @@ import { GenreParams, MovieFormParams, MovieParams, Page } from '../../protocols
 import { HttpStatusCode } from '../../protocols/http'
 
 //TODO
+//tratar bad request
 //add Tests to Validate - Yup Adapter
 //add old state and compare to avoid updates without changes
 //add delete movie
@@ -18,7 +19,7 @@ import { HttpStatusCode } from '../../protocols/http'
 export function MovieForm(props: Page) {
   const validate = Validate()
   const history = useHistory()
-  const [genres, setGenres] = useState<GenreParams[]>([])
+  const [genres, setGenres] = useState<GenreParams[]>([])  
   const [errors, setErrors] = React.useState<any[]>([])
   const [movie, setMovie] = useState<MovieFormParams | undefined>({
     title: undefined,
@@ -73,6 +74,11 @@ export function MovieForm(props: Page) {
     formData[name] = value
     setMovie(formData)
 
+    // const errorsFound = await validate.One(name, value, validationSchema)
+    // console.log(errorsFound);
+    
+    // setErrors(errorsFound)
+    
     const errorsFound = { ...errors }
     const errorMessage = await validate.One(name, value, validationSchema)
 
@@ -128,8 +134,11 @@ export function MovieForm(props: Page) {
           onChange={handleChange}
           inputvalue={movie}
         />
+       
+         
         <CancelButton label="Return" onClick={() => history.push('/movies')} />
         <Button type="submit" label="Submit" />
+        
       </form>
     </div>
   )

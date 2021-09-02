@@ -7,15 +7,14 @@ export class YupAdapter implements ValidateOne, ValidateMany {
 
     const obj = { [name]: objValue }
     const objSchema = Yup.object().shape({ [name]: schema[name] })
-    const error = await objSchema
+    return await objSchema
       .validate(obj)
       .then(function (value: any) {
         return undefined
       })
       .catch(function (err: any) {
         return err.message
-      })
-    return error
+        })
   }
 
   async Many(obj: any, schema: any): Promise<any> {
@@ -35,3 +34,4 @@ export class YupAdapter implements ValidateOne, ValidateMany {
     return error
   }
 }
+

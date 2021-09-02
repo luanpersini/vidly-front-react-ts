@@ -39,15 +39,7 @@ export function Movies(props: Page & { user: UserParams }) {
       setAllMovies(movies)
     }catch (error: any) {             
       // httpErrorHandler(error)                             
-    }
-    
-    
-      // const data = await getGenres()
-      // const genres = [{ _id: '', name: 'All Genres' }, ...data]
-      // setGenres(genres)
-      // const movies = await getMovies()
-      // setAllMovies(movies)
-    
+    }  
     })()
   }, [])
 

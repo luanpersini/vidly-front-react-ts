@@ -1,50 +1,65 @@
-import React from 'react';
-import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import NavBar from './components/navBar';
-import routes from './config/routes';
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import { AuthRoute } from './components/common/auth-route'
+import NavBar from './components/navBar'
+import routes from './config/routes'
+import { auth } from './infra/services/authService'
+import { UserJwtParams } from './protocols'
 
-
-const App: React.FunctionComponent<Record<string, unknown>> = props => {
-     
-  // const user = {
-  //   _id: { $oid: '60a178327476cd104886862f' },
-  //   name: 'Luan PSG',
-  //   email: 'luanpsg@gmail.com',
-  //   password: '$2b$10$RX4j/xWlLQgViqNHPgUZYuFQsYC2yTGuZ3pQ2zN33dItpURq3aCHi'
-  // }
-
-  const user = null
+const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
+  const [user, setUser] = useState<UserJwtParams>({name: ''})
+  useEffect(() => {
+    (async () => {
+        auth.getCurrentUser()
+        .then((user:any) =>{
+            setUser(user)
+        })
+        .catch((err) => { console.log(err);
+        })
+        })()
+  }, [])
  
-    return (
-      <BrowserRouter>
+  return (
+    <BrowserRouter>
       <ToastContainer />
-      <NavBar user={user} />            
-      <main className="container">            
-                <Switch>
-                    {routes.map((route, index) => {                       
-                        return (                            
-                            <Route 
-                                key={index}
-                                path={route.path}
-                                exact={route.exact}
-                                render={(props: RouteComponentProps<any> ) => (
-                                    <route.component
-                                        title={route.title} 
-                                        {...props}
-                                        {...route.props}
-                                    />
-                                )}
-                            />
-                        );
-                    })}
-                </Switch>            
+      <NavBar user={user} />
+      <main className="container">
+        <Switch>
+          {routes.map((route, index) => {
+            if (route.auth)
+             {
+            return (
+              <Route
+                key={index}
+                path={route.path}                
+                exact={route.exact}
+                render={(props: RouteComponentProps<any>) => (
+                  <AuthRoute from={location.pathname} >
+                  <route.component title={route.title} {...props} {...route.props} />
+                  </AuthRoute>
+                )}
+              />
+            )
+          }
+          return (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              render={(props: RouteComponentProps<any>) => (
+                <route.component title={route.title} {...props} {...route.props} />                
+              )}
+            />
+          )
+          })}
+        </Switch>
       </main>
-      </BrowserRouter>
-    );  
+    </BrowserRouter>
+  )
 }
 
-export default App;
+export default App
 
 // ToDo
 // Toast Container

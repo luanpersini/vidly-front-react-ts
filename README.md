@@ -2,18 +2,18 @@
 
 # Objectives
 
-The main objective of this project is to convert an APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to generate unnexpected challanges on the conversion, focusing on the tecnologies istead of the bussiness rules and solutions that will be delivered.
+The main objective of this project is to convert an APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to deal with the challanges of the conversion, focusing on the tecnologies istead of the bussiness rules and solutions that the App will delivery.
 
 **From:**
 
 - React 16 (using classes, mount/dimount)
 - Javascript (no types)
-- Bootstrap 5 (built in styles)
+- Bootstrap 4 (styles library)
 
 **To:**
 
-- React 17 (using functions, useEffect, useState)
-- Typescript (hard typed)
+- React 17 (using functions and hooks)
+- Typescript (strongly typed)
 - css, scss ([https://sass-lang.com/guide](https://sass-lang.com/guide))
 
 

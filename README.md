@@ -51,3 +51,6 @@ The challanges were really present. Many research had to be done to convert from
 **Credits:**
 
 The original app was build by Mosh. You can find his courses at: https://codewithmosh.com/
+
+
+![](theme-dark-light.gif)

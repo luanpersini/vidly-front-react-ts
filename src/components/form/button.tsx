@@ -1,16 +1,22 @@
 import React, { ButtonHTMLAttributes } from 'react'
+import styled from 'styled-components'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string | undefined
 }
+export const StyledButton = styled.button`
+  :not(:first-child){
+    margin-left:5px
+  }  
+`
 
 export function Button(props: Props) {
   const { label, className } = props
 
   return (
-    <button {...props} disabled={false} className={className}>
+    <StyledButton {...props} disabled={false} className={className}>
       {label}
-    </button>
+    </StyledButton>
   )
 }
 Button.defaultProps = {  

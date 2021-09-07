@@ -1,21 +1,25 @@
 import React, { ButtonHTMLAttributes } from 'react'
+import { StyledButton } from './button'
+
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string | undefined
  }
 
+ 
+
 export function CancelButton(props: Props) {
   const { label, className, type } = props
   
   return (
-    <button
+    <StyledButton
       {...props}
       disabled={false}
       type={type}      
       className={className}      
     >
       {label}
-    </button>
+    </StyledButton>
   )
 }
 CancelButton.defaultProps = { 

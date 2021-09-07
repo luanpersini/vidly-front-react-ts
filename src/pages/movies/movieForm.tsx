@@ -19,7 +19,7 @@ import { HttpStatusCode } from '../../interfaces/http-client'
 export function MovieForm(props: Page) {
   const validate = Validate()
   const history = useHistory()
-  const [genres, setGenres] = useState<GenreParams[]>([])  
+  const [genres, setGenres] = useState<GenreParams[]>([])
   const [errors, setErrors] = React.useState<any[]>([])
   const [movie, setMovie] = useState<MovieFormParams | undefined>({
     title: undefined,
@@ -53,13 +53,23 @@ export function MovieForm(props: Page) {
     _id: Yup.string(),
     title: Yup.string().required().min(2).max(100).label('Title'),
     genreId: Yup.string().required().label('Genre'),
-    numberInStock: Yup.number().typeError(numberErrorMsg).required().min(0).max(100).label('Number in Stock'),
-    dailyRentalRate: Yup.number().typeError(numberErrorMsg).required().min(0).max(10).label('Daily Rental Rate')
+    numberInStock: Yup.number()
+      .typeError(numberErrorMsg)
+      .required()
+      .min(0)
+      .max(100)
+      .label('Number in Stock'),
+    dailyRentalRate: Yup.number()
+      .typeError(numberErrorMsg)
+      .required()
+      .min(0)
+      .max(10)
+      .label('Daily Rental Rate')
   }
-  
-   async function handleChange({ currentTarget: input }: any) {
+
+  async function handleChange({ currentTarget: input }: any) {
     const formData: any = { ...movie }
-    const {name, value} = input
+    const { name, value } = input
     formData[name] = value
     setMovie(formData)
 
@@ -68,16 +78,16 @@ export function MovieForm(props: Page) {
 
     if (errorMessage) errorsFound[input.name] = errorMessage
     else delete errorsFound[input.name]
-    setErrors(errorsFound)   
+    setErrors(errorsFound)
   }
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
     const errorsFound = await validate.Many(movie, validationSchema)
-    setErrors(errorsFound)    
-    
+    setErrors(errorsFound)
+
     //return to render the page again and show the errors before reaching the server
     if (Object.keys(errors).length > 0) return
-    if(movie?.title === '') return
+    if (movie?.title === '') return
 
     try {
       await saveMovie(movie)
@@ -123,16 +133,16 @@ export function MovieForm(props: Page) {
         />
         <Input
           name="dailyRentalRate"
-          label="Rate"          
+          label="Rate"
           errors={errors}
           onChange={handleChange}
           inputvalue={movie}
         />
-       
-         
-        <CancelButton label="Return" onClick={() => history.push('/movies')} />
-        <Button type="submit" label="Submit" />
-        
+
+        <div>
+          <CancelButton label="Return" onClick={() => history.push('/movies')} />
+          <Button type="submit" label="Submit" />
+        </div>
       </form>
     </div>
   )

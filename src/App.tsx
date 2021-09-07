@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
+import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ProtectedRoute } from './components/common/protected-route'
 import NavBar from './components/template/navbar'
 import routes from './config/routes'
 import { auth } from './infra/services/authService'
 import { UserJwtParams } from './interfaces'
+import GlobalStyle from './styles/global'
+import dark from './styles/themes/dark'
+import light from './styles/themes/light'
+import usePersistedState from './utils/common/usePersistedState'
 
 const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
   const [user, setUser] = useState<UserJwtParams>({name: ''})
+  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
+ 
+  
+  const toggleTheme = () => {
+    setTheme(theme.title === 'light' ? dark : light);
+  };
+
+  
   useEffect(() => {
     (async () => {
         auth.getCurrentUser()
@@ -22,8 +35,11 @@ const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
  
   return (
     <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <div className="app">
+      <GlobalStyle />      
       <ToastContainer />
-      <NavBar user={user} />
+      <NavBar user={user?.name} toggleTheme={toggleTheme}/>
       <main className="container">
         <Switch>
           {routes.map((route, index) => {
@@ -55,12 +71,18 @@ const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
           })}
         </Switch>
       </main>
+      </div>
+      </ThemeProvider>
     </BrowserRouter>
   )
 }
 
 export default App
 
+
+function usePeristedState<T>(arg0: string, light: any): [any, any] {
+  throw new Error('Function not implemented.')
+}
 // ToDo
 // Toast Container
 

@@ -2,7 +2,9 @@
 
 # Objectives
 
-The main objective of this project is to convert an APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to deal with the challanges of the conversion, focusing on the tecnologies istead of the bussiness rules and solutions that the App will delivery.
+The main objective of this project is to convert an client APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to deal with the challanges of the conversion, focusing on the tecnologies istead of the bussiness rules and solutions that the App will delivery.
+
+The backend can be found at https://github.com/luanpersini/vidly-server-ts
 
 **From:**
 
@@ -14,7 +16,7 @@ The main objective of this project is to convert an APP built using React-Javasc
 
 - React 17 (using functions and hooks)
 - Typescript (strongly typed)
-- css, scss ([https://sass-lang.com/guide](https://sass-lang.com/guide))
+- styled components + bootstrap (gonna keep bootstrap because the goal is to learn how to use styled components)
 
 
 ## Vidly
@@ -43,4 +45,9 @@ The challanges were really present. Many research had to be done to convert from
 - Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
 - Implemented an abstraction to validate schemas (YupAdapter)
 - Implemented a dinamic route system.
-- Made a component to check if the user is autenticated to access restricted routes (ProtectedRoute).
+- Made a component to check if the user is autenticated to access restricted routes (ProtectedRoute)
+- Implemented a Theme selector (Dark/Light) with styled components. 
+
+**Credits:**
+
+The original app was build by Mosh. You can find his courses at: https://codewithmosh.com/

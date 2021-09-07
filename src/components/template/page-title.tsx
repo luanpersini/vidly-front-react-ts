@@ -4,18 +4,19 @@ import styled from 'styled-components'
 
 interface Props {
   title: string
+  color?: string
 }
 
-export const TitleStyle = styled.h1`
+export const PageTitle = styled.h1<Omit<Props, 'title'>>`
   font-weight: bold;
   font-style: italic;
   border-bottom: 3px solid #ddd;
   margin-bottom: 30px;
-  padding-bottom: 3px;  
+  padding-bottom: 3px;   
 `
 
-export function Title({ title }: Props) {
+export function Title({title, ...props}: Props) {
   useEffect(() => { document.title = title}, [])
-  return <TitleStyle>{title}</TitleStyle>
+  return <PageTitle {...props}>{title}</PageTitle>
  
 }

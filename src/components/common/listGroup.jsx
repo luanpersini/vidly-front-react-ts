@@ -1,4 +1,11 @@
 import React from "react";
+import styled from 'styled-components';
+
+export const StyledList = styled.div`
+  ul li {
+  color: #000;   
+} 
+`
 
 const itemClass = (item, selectedItem) => {
   if( item === selectedItem) {
@@ -18,20 +25,21 @@ export const ListGroup = ({
   onItemSelect
 }) => {  
   return (
+    <StyledList>
     <ul className="list-group">
       {items.map(item => (
         <li
           onClick={() => onItemSelect(item)}
           key={item[valueProperty]}
           className={
-            itemClass(item, selectedItem)
-            // item === selectedItem ? "list-group-item active" : "list-group-item"
+            itemClass(item, selectedItem)            
           }
         >
           {item[textProperty]}         
         </li>
       ))}
     </ul>
+    </StyledList>
   );
 };
 ListGroup.defaultProps = {

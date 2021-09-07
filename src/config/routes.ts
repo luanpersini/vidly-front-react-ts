@@ -6,6 +6,8 @@ import { Register } from '../pages/auth/Register'
 import { Customers } from '../pages/customers'
 import { MovieForm } from '../pages/movies/movieForm'
 import { Movies } from '../pages/movies/Movies'
+import { Profile } from '../pages/profile'
+import Rentals from '../pages/rentals'
 
 const user = {
   _id: { $oid: '60a178327476cd104886862f' },
@@ -43,6 +45,20 @@ const mainRoutes: Route[] = [
     title: 'Customers',
     auth: false,
     component: Customers,
+    exact: true
+  },
+  {
+    path: '/rentals',
+    title: 'Rentals',
+    auth: true,
+    component: Rentals,
+    exact: true
+  },
+  {
+    path: '/profile',
+    title: 'Profile',
+    auth: true,
+    component: Profile,
     exact: true
   }
 ]

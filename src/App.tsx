@@ -14,7 +14,7 @@ import light from './styles/themes/light'
 import usePersistedState from './utils/common/usePersistedState'
 
 //Todo
-//Add log service to error boundary
+//Add log service to error boundary - log on files incase db server is down
 
 const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
   const [user, setUser] = useState<UserJwtParams>({name: ''})

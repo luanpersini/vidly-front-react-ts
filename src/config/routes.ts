@@ -3,11 +3,11 @@ import { Route } from '../interfaces/route'
 import { Login } from '../pages/auth/Login'
 import { Logout } from '../pages/auth/Logout'
 import { Register } from '../pages/auth/Register'
-import { Customers } from '../pages/customers'
 import { MovieForm } from '../pages/movies/movieForm'
 import { Movies } from '../pages/movies/Movies'
-import { Profile } from '../pages/profile'
-import Rentals from '../pages/rentals'
+import { Customers } from '../pages/others/customers'
+import { Profile } from '../pages/others/profile'
+import { Rentals } from '../pages/others/rentals'
 
 const user = {
   _id: { $oid: '60a178327476cd104886862f' },

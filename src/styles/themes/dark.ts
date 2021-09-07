@@ -2,18 +2,18 @@ export default {
   title: 'dark',
 
   colors: {
-    primary: '#303437',
+    primary: '#303037',
     secundary: '#c44b69',
     
     shade0: '#404447',
-    shade1: '#303437',
+    shade1: '#303037',
     shade2: '#616161',
     shade3: '#757575',
     shade4: '#9e9e9e',
     shade5: '#bdbdbd',
     shade6: '#f5f5f5',
 
-    background: '#303437',
+    background: '#303037',
     text: '#f5f5f5',
   },
 };

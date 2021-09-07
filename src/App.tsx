@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Route, RouteComponentProps, Switch } from 'react-router-dom'
+import { Route, RouteComponentProps, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
+import ErrorBoundary from './components/common/error-boundary'
 import { ProtectedRoute } from './components/common/protected-route'
 import NavBar from './components/template/navbar'
 import routes from './config/routes'
@@ -12,11 +13,13 @@ import dark from './styles/themes/dark'
 import light from './styles/themes/light'
 import usePersistedState from './utils/common/usePersistedState'
 
+//Todo
+//Add log service to error boundary
+
 const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
   const [user, setUser] = useState<UserJwtParams>({name: ''})
   const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light);
- 
-  
+   
   const toggleTheme = () => {
     setTheme(theme.title === 'light' ? dark : light);
   };
@@ -32,15 +35,15 @@ const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
         })
         })()
   }, [])
- 
-  return (
-    <BrowserRouter>
+
+  return (    
     <ThemeProvider theme={theme}>
       <div className="app">
       <GlobalStyle />      
       <ToastContainer />
-      <NavBar user={user?.name} toggleTheme={toggleTheme}/>
+      <NavBar user={user?.name} toggleTheme={toggleTheme}/>      
       <main className="container">
+      <ErrorBoundary>
         <Switch>
           {routes.map((route, index) => {
             if (route.auth)
@@ -70,89 +73,12 @@ const App: React.FunctionComponent<Record<string, unknown>> = (props) => {
           )
           })}
         </Switch>
-      </main>
+        </ErrorBoundary>
+      </main>       
       </div>
       </ThemeProvider>
-    </BrowserRouter>
+        
   )
 }
 
 export default App
-
-
-function usePeristedState<T>(arg0: string, light: any): [any, any] {
-  throw new Error('Function not implemented.')
-}
-// ToDo
-// Toast Container
-
-/*
-import React from 'react'
-import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-// import ProtectedRoute from './components/common/protectedRoute'
-import { Customers } from './components/customers'
-// import LoginForm from './components/loginForm'
-// import Logout from './components/logout'
-// import MovieForm from './components/movieForm'
-import NavBar from './components/navBar'
-import NotFound from './components/notFound'
-import { Movies } from './pages/Movies'
-// import RegisterForm from './components/registerForm'
-// import Rentals from './components/rentals'
-// import auth from './services/authService'
-
-function App() {
-  // componentDidMount() {
-  //   const user = auth.getCurrentUser()
-  //   this.setState({ user })
-  // }
-
-  // const { user } = this.state
-
-  //   type UserParams = {
-  //     _id: string
-  //     name: string
-  //     email: string
-  //     password: string
-  // }
-  const user = {
-    _id: { $oid: '60a178327476cd104886862f' },
-    name: 'Luan PSG',
-    email: 'luanpsg@gmail.com',
-    password: '$2b$10$RX4j/xWlLQgViqNHPgUZYuFQsYC2yTGuZ3pQ2zN33dItpURq3aCHi'
-  }
-
-  return (
-    <React.Fragment>
-      <ToastContainer />
-      <NavBar user={user} />
-      <main className="container">
-        <Switch>
-           
-         
-            
-        <Route path="/customers" component={Customers} />
-          <Route path="/movies" render={(props: RouteComponentProps) => <Movies {...props} user={user} />} />
-          <Route path="/movies" component={Movies} />
-          <Redirect from="/" exact to="/movies" />        
-          <Route path="*" component={NotFound} />
-        </Switch>
-      </main>
-    </React.Fragment>
-  )
-}
-
-export default App
-
-
-/*
-<Route path="/register" component={RegisterForm} />
-<Route path="/login" component={LoginForm} />
-<Route path="/logout" component={Logout} />
-<ProtectedRoute path="/movies/:id" component={MovieForm} />
-<Route path="/movies" render={(props) => <Movies {...props} user={this.state.user} />} />
-<Route path="/customers" component={Customers} />
-<Route path="/rentals" component={Rentals} />
-*/

@@ -48,9 +48,9 @@ The challanges were really present. Many research had to be done to convert from
 - Made a component to check if the user is autenticated to access restricted routes (ProtectedRoute)
 - Implemented a Theme selector (Dark/Light) with styled components. 
 
-**Credits:**
+![](theme-dark-light.gif)
 
+**Credits:**
 The original app was build by Mosh. You can find his courses at: https://codewithmosh.com/
 
 
-![](theme-dark-light.gif)

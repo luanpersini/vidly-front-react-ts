@@ -2,7 +2,7 @@
 
 # Objectives
 
-The main objective of this project is to convert an client APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to deal with the challanges of the conversion, focusing on the tecnologies istead of the bussiness rules and solutions that the App will delivery.
+The main objective of this project is to convert an client APP built using React-Javascript-Bootstrap to an APP using React-Typescript-SCSS. The idea is to deal with the challanges of the conversion, focusing on the tecnologies instead of the bussiness rules and solutions that the App will delivery.
 
 The backend can be found at https://github.com/luanpersini/vidly-server-ts
 

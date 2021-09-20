@@ -1,12 +1,13 @@
-import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { ListGroup, Pagination, SearchBox } from '../../components/common'
-import { Title } from '../../components/template'
-import { getGenres, getMovies } from '../../infra/services'
 import { GenreParams, MovieParams, Page, UserParams } from '../../interfaces'
-import { paginate } from '../../utils/common/paginate'
+import { ListGroup, Pagination, SearchBox } from '../../components/common'
+import React, { useEffect, useState } from 'react'
+import { getGenres, getMovies } from '../../infra/services'
+
+import { Link } from 'react-router-dom'
 import MoviesTable from './moviesTable'
+import { Title } from '../../components/template'
+import _ from 'lodash'
+import { paginate } from '../../utils/common/paginate'
 
 // const Movies: React.FC<Page & {user: UserParams}> = props => {
 export function Movies(props: Page & { user: UserParams }) {
@@ -14,8 +15,7 @@ export function Movies(props: Page & { user: UserParams }) {
     path: string
     order: 'asc' | 'desc'
   }
-  const history = useHistory()
-  const user = props.user
+   const user = props.user
   const allGenres = { _id: '', name: 'All Genres' }
   const [genre, setGenre] = useState<GenreParams>(allGenres)
   const [genres, setGenres] = useState<GenreParams[]>([allGenres])

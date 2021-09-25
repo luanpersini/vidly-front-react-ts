@@ -41,7 +41,7 @@ The challanges were really present. Many research had to be done to convert from
 - Made a single File to handle routes, mapping it inside App.tsx.
 - Implemented an abstraction to http calls (AxiosHttpAdapter)
 - Used a decorator to intercept unexpected errors from http service.
-- Implemented a Log Service using a Decorator to intercept unexpected errors from http calls. (log-http-decorator)  
+- Implemented a error boundary in the React `<main className="container">` to handle unexpected errors without breaking the app completly.  
 - Made a helper to handle http responses, resolving expected errors (forbidden, notFound, etc) with the possibility of using Toast Messages.
 - Implemented an abstraction to validate schemas (YupAdapter)
 - Implemented a dinamic route system.

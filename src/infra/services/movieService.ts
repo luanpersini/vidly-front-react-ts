@@ -17,12 +17,6 @@ export async function getMovies(): Promise<any> {
     
   return httpResponseHandler(httpResponse) 
   
-  // const data = httpResponse.body
-  // switch (httpResponse.statusCode) {
-  //   case HttpStatusCode.ok: return data    
-  //   default: return []
-  // }
-  
 }
 
 export async function getMovie(movieId: any): Promise<any> {

@@ -1,13 +1,11 @@
-import jwtDecode from 'jwt-decode'
+import { Http } from './httpService'
 import { apiUrl } from '../../config.json'
 import { httpResponseHandler } from '../http/http-response-handler'
-import { Http } from './httpService'
+import jwtDecode from 'jwt-decode'
 
 const http = Http()
 const apiEndpoint = apiUrl + '/auth'
 const tokenKey = 'token'
-
-// http.setJwt(getJwt())
 
 export const auth = {
   async login(email: any, password: any) {    

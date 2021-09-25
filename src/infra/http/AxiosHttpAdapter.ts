@@ -1,5 +1,7 @@
-import axios, { AxiosResponse } from 'axios'
 import { HttpClient, HttpRequest, HttpResponse } from '../../interfaces/http-client'
+import axios, { AxiosResponse } from 'axios'
+
+import { MapToMongoIdHelper } from './map-to-mongo-id-helper'
 
 export class AxiosHttpAdapter implements HttpClient {
   async request(httpRequest: HttpRequest): Promise<HttpResponse> {
@@ -21,9 +23,17 @@ export class AxiosHttpAdapter implements HttpClient {
         }
       }  
     }
+    // This is converting incoming data with id to _id. The best solution would have been build this app receiving id and mapping the mongo _id to id, since its the only database i know that uses _id. 
+    let body = axiosResponse.data
+    if(Array.isArray(body)){
+      body = MapToMongoIdHelper.mapArray(body) 
+    }else{
+      body = MapToMongoIdHelper.map(body)     
+    }
+    
     return {
       statusCode: axiosResponse.status,
-      body: axiosResponse.data
+      body: body
     }
   }
 }

@@ -1,10 +1,11 @@
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
 import { HttpResponse, HttpStatusCode } from '../../interfaces/http-client'
-import { MovieNotFound } from '../../utils/errors'
+
 import { BadRequestError } from '../../utils/errors/bad-request-error'
 import { InvalidCredentials } from '../../utils/errors/error-messages'
-
+import { MovieNotFound } from '../../utils/errors'
+import { toast } from 'react-toastify'
 
 type HandleParams = {
   action?: string | undefined
@@ -20,7 +21,6 @@ export function httpResponseHandler( httpResponse: HttpResponse, handle?: Handle
     
   handleItems?.forEach((handle) => {
     const { customMessage, action } = handle
-    console.log('customMessage' + customMessage);
     
     if (statusCode >= 200 && statusCode <= 299) {
       if (action === 'Success') {

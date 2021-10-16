@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
 import { auth } from '../../infra/services/authService'
+import { useEffect } from 'react'
 
 export function Logout() {  
   useEffect(() => {
@@ -7,6 +7,6 @@ export function Logout() {
       auth.logout()
     })()
   }, [])
-  window.location = '/' as unknown as Location
+  window.location = '/#' as unknown as Location
   return null
 }

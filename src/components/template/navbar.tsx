@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import Switch from 'react-switch'
+import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+
+import Switch from 'react-switch'
 
 interface Props {
   user: string
@@ -61,7 +62,7 @@ const NavBar: React.FC<Props> = ({ user, toggleTheme }: Props) => {
 
   return (
     <NavContainer>
-      <div className="left-items">
+      <div data-cy="nav-container" className="left-items">
         <Link className="navbrand" to="/">
           Vidly
         </Link>

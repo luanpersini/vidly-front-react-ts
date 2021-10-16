@@ -13,7 +13,7 @@ import { auth } from '../../infra/services/authService'
 export function Login(props: Page) {
   const validate = Validate()
   const history = useHistory()
-  const location = useLocation()
+  const location: any = useLocation()
 
   const [errors, setErrors] = React.useState<any[]>([])
   const [submitErrors, setSubmitErrors] = React.useState<string | undefined>(undefined)
@@ -48,13 +48,11 @@ export function Login(props: Page) {
    
     let previousLocation = undefined
 
-    if (location.state !== null) {
-      const { from }: any = location.state
-      if (from !== undefined) {
-        previousLocation = from
+    if (location.state !== null) {  
+      if (location.state?.from !== undefined) {
+        previousLocation = location.state?.from
       }
-    }
-
+    } 
     try {
       await auth.login(data.email, data.password)
       if (previousLocation !== '/login' && previousLocation !== undefined) {

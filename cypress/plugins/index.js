@@ -19,4 +19,14 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  
+  // on('task', {
+  //   async 'db:seed'() {
+  //     // Send request to backend API to re-seed database with test data
+      
+  //     const { data } = await axios.post(`${testDataApiEndpoint}/seed`)
+  //     return data
+  //   },
+  //   //...
+  // })
 }

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
+
 import React, { InputHTMLAttributes } from 'react';
+
 import { ErrorMessage } from './error-message';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -11,7 +13,6 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 // inputvalues?: any | undefined
 export function Input(props: Props) {
   const { name, errors, id, label, type, className, placeholder, inputvalue } = props  
-  // console.log('input vv----'+inputvalues);
   
   const labelName = label === undefined ? name : label   
   return (
@@ -21,6 +22,7 @@ export function Input(props: Props) {
       <input
         {...props}
         name={name}
+        data-cy={name}
         type={type}
         value={inputvalue === undefined ? '' : inputvalue[name]}
         id={id === undefined ? name : id}

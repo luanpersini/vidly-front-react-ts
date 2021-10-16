@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import React, { SelectHTMLAttributes } from 'react';
+
 import { ErrorMessage } from './error-message';
 
 interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -22,6 +23,7 @@ export function Select(props: Props) {
       <select
         {...props}
         name={name}
+        data-cy={name}
         id={id === undefined ? name : id}
         className={className}
         value={inputvalue === undefined ? '' : inputvalue[name]}

@@ -1,12 +1,14 @@
+import * as Yup from 'yup'
+
+import { Button, Input } from '../../components/form'
 import React, { useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import * as Yup from 'yup'
-import { Button, Input } from '../../components/form'
+
 import { FormSubmitErrorMessage } from '../../components/form/form-submit-error-message'
-import { Title } from '../../components/template'
-import { auth } from '../../infra/services/authService'
-import { Validate } from '../../infra/validation/validate-factory'
 import { Page } from '../../interfaces'
+import { Title } from '../../components/template'
+import { Validate } from '../../infra/validation/validate-factory'
+import { auth } from '../../infra/services/authService'
 
 export function Login(props: Page) {
   const validate = Validate()
@@ -43,7 +45,7 @@ export function Login(props: Page) {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault()
-    console.log(location)
+   
     let previousLocation = undefined
 
     if (location.state !== null) {

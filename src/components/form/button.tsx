@@ -1,4 +1,5 @@
 import React, { ButtonHTMLAttributes } from 'react'
+
 import styled from 'styled-components'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,7 +15,7 @@ export function Button(props: Props) {
   const { label, className } = props
 
   return (
-    <StyledButton {...props} disabled={false} className={className}>
+    <StyledButton {...props} disabled={false}  data-cy={label?.toLowerCase()} className={className}>
       {label}
     </StyledButton>
   )

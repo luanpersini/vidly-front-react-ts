@@ -1,6 +1,7 @@
-import Joi from "joi-browser";
 import React, { Component } from "react";
+
 import Input from "./input";
+import Joi from "joi-browser";
 import Select from "./select";
 
 class Form extends Component {
@@ -73,8 +74,7 @@ class Form extends Component {
 
   renderInput(name, label, type = "text") {
     const { data, errors } = this.state;
-    console.log('111'+ errors);
-    console.log('222'+ JSON.stringify(errors));
+
     return (
       <Input
         type={type}

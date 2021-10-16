@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
+
 import { Button, Input } from '../../components/form'
+import React, { useState } from 'react'
+
 import { FormSubmitErrorMessage } from '../../components/form/form-submit-error-message'
+import { Page } from '../../interfaces'
 import { Title } from '../../components/template'
+import { Validate } from '../../infra/validation/validate-factory'
 import { auth } from '../../infra/services/authService'
 import { register } from '../../infra/services/userService'
-import { Validate } from '../../infra/validation/validate-factory'
-import { Page } from '../../interfaces'
+import { useHistory } from 'react-router-dom'
 
 export function Register(props: Page) {
   const validate = Validate()

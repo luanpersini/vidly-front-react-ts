@@ -23,3 +23,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('login', (email='any_email5@mail.com', password='any_password' ) => {
+    cy.visit('/login');
+    
+    if(email === ''){
+    cy.get('[data-cy=email]').clear().should('have.value', email);
+    }else{
+    cy.get('[data-cy=email]').type(email).should('have.value', email);
+    }
+    if(password=== ''){
+     cy.get('[data-cy=password]').clear().should('have.value', password);
+     }else{
+     cy.get('[data-cy=password]').type(password).should('have.value', password);
+     }   
+  
+    cy.get('[data-cy=login]').click();
+    cy.wait(500)
+})

@@ -1,7 +1,6 @@
+import { Http } from './httpService'
 import { apiUrl } from '../../config.json'
 import { httpResponseHandler } from '../http/http-response-handler'
-// import { httpResponseHandler } from '../http/http-error-handler'
-import { Http } from './httpService'
 
 const http = Http()
 
@@ -13,11 +12,5 @@ export async function getGenres(): Promise<any> {
   })  
 
   return httpResponseHandler(httpResponse)
-
-  // const data = httpResponse.body
-  // switch (httpResponse.statusCode) {
-  //   case HttpStatusCode.ok: return data    
-  //   default: return []
-  // }
   
 }

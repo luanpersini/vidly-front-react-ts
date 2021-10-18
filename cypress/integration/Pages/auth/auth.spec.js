@@ -58,7 +58,7 @@ describe(`${testSuiteName} Tests`, () => {
 
     cy.url().should('equal', baseUrl + '/')
   });
-  it('should not register if any field validation fails', async () => {
+  it.only('should not register if any field validation fails', async () => {
     cy.visit('/register');
     // Add initial data
     fillRegisterFields ()
@@ -83,9 +83,8 @@ describe(`${testSuiteName} Tests`, () => {
     cy.url().should('equal', baseUrl + '/register')    
     cy.get('div .alert-danger').contains('User already registered')  
   })
-  it('should redirect to the base URL if someone tries to access /register while loged in', () => {
-    
-    cy.login()
+  it('should redirect to the base URL if someone tries to access /register while loged in', () => {    
+    cy.auth_login()
     cy.url().should('equal', baseUrl + '/')
     
     cy.visit('/register');
@@ -96,8 +95,8 @@ describe(`${testSuiteName} Tests`, () => {
 
 describe(`${testSuiteName}: Login`, () => {
 
-  it.only('should log a user and show the profile link in the navbar', () => {     
-    cy.login()
+  it('should log a user and show the profile link in the navbar', () => {     
+    cy.auth_login()
     cy.url().should('equal', baseUrl + '/')
     
     const link = '/profile'
@@ -105,7 +104,7 @@ describe(`${testSuiteName}: Login`, () => {
     cy.url().should('equal', baseUrl + link)
   });
   it('should redirect to the base URL if someone tries to access /login while loged in', () => {
-    cy.login()
+    cy.auth_login()
     cy.url().should('equal', baseUrl + '/')
     
     cy.visit('/login');
@@ -117,7 +116,7 @@ describe(`${testSuiteName}: Logout`, () => {
   it('should logout the current loged user', () => {
     const link = '/logout'
 
-    cy.login()
+    cy.auth_login()
     cy.url().should('equal', baseUrl + '/')
 
     visitNavLink(link)

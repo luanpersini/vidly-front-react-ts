@@ -1,10 +1,9 @@
 import 'react-toastify/dist/ReactToastify.css'
 
 import { HttpResponse, HttpStatusCode } from '../../interfaces/http-client'
+import { InvalidCredentials, MovieNotFound } from '../../utils/errors/error-messages'
 
 import { BadRequestError } from '../../utils/errors/bad-request-error'
-import { InvalidCredentials } from '../../utils/errors/error-messages'
-import { MovieNotFound } from '../../utils/errors'
 import { toast } from 'react-toastify'
 
 type HandleParams = {

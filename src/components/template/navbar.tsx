@@ -67,13 +67,7 @@ const NavBar: React.FC<Props> = ({ user, toggleTheme }: Props) => {
           Vidly
         </Link>
         <NavLink className="nav-item nav-link" to="/movies">
-          Movies
-        </NavLink>
-        <NavLink className="nav-item nav-link" to="/customers">
-          Customers
-        </NavLink>
-        <NavLink className="nav-item nav-link" to="/rentals">
-          Rentals
+          Movies        
         </NavLink>
         {!user && (
           <React.Fragment>
